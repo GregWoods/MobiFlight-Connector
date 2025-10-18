@@ -37,7 +37,7 @@ namespace MobiFlight.Base.Migration.Tests
             // Arrange
             var project = new Project();
             var currentVersionDocument = JObject.Parse($@"{{
-                ""_version"": ""{project.Version}"",
+                ""_version"": ""{project.SchemaVersion}"",
                 ""Name"": ""Test Project"",
                 ""ConfigFiles"": []
             }}");
@@ -50,7 +50,7 @@ namespace MobiFlight.Base.Migration.Tests
             var result = applyMigrationsMethod.Invoke(project, new object[] { currentVersionDocument }) as JObject;
 
             // Assert
-            Assert.AreEqual(project.Version.ToString(), result["_version"].ToString());
+            Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
             Assert.AreEqual("Test Project", result["Name"].ToString());
         }
 
@@ -71,7 +71,7 @@ namespace MobiFlight.Base.Migration.Tests
             var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithoutVersion }) as JObject;
 
             // Assert
-            Assert.AreEqual(project.Version.ToString(), result["_version"].ToString());
+            Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
             Assert.AreEqual("Legacy Project", result["Name"].ToString());
         }
 
@@ -131,7 +131,7 @@ namespace MobiFlight.Base.Migration.Tests
             Assert.IsNull(precondition["PreconditionActive"]);
             
             // Verify version was updated
-            Assert.AreEqual(project.Version.ToString(), result["_version"].ToString());
+            Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
         }
 
         #endregion
@@ -215,7 +215,7 @@ namespace MobiFlight.Base.Migration.Tests
             var savedContent = File.ReadAllText(testProjectFile);
             var savedDocument = JObject.Parse(savedContent);
             
-            Assert.AreEqual(project.Version.ToString(), savedDocument["_version"].ToString());
+            Assert.AreEqual(project.SchemaVersion.ToString(), savedDocument["_version"].ToString());
             Assert.AreEqual("Version Test Project", savedDocument["Name"].ToString());
         }
 
@@ -226,7 +226,7 @@ namespace MobiFlight.Base.Migration.Tests
             var modernProject = new Project();
             var modernProjectJson = JsonConvert.SerializeObject(new
             {
-                _version = modernProject.Version.ToString(),
+                _version = modernProject.SchemaVersion.ToString(),
                 Name = "Modern Project",
                 ConfigFiles = new[]
                 {
@@ -310,7 +310,7 @@ namespace MobiFlight.Base.Migration.Tests
             var result = applyMigrationsMethod.Invoke(project, new object[] { corruptedDocument }) as JObject;
             
             // Verify version was still updated
-            Assert.AreEqual(project.Version.ToString(), result["_version"].ToString());
+            Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
         }
 
         [TestMethod]
@@ -331,7 +331,7 @@ namespace MobiFlight.Base.Migration.Tests
             var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithInvalidVersion }) as JObject;
 
             // Assert
-            Assert.AreEqual(project.Version.ToString(), result["_version"].ToString());
+            Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
             Assert.AreEqual("Invalid Version Project", result["Name"].ToString());
         }
 
@@ -353,7 +353,7 @@ namespace MobiFlight.Base.Migration.Tests
             var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithEmptyVersion }) as JObject;
 
             // Assert
-            Assert.AreEqual(project.Version.ToString(), result["_version"].ToString());
+            Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
             Assert.AreEqual("Empty Version Project", result["Name"].ToString());
         }
 
@@ -375,7 +375,7 @@ namespace MobiFlight.Base.Migration.Tests
             var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithNullVersion }) as JObject;
 
             // Assert
-            Assert.AreEqual(project.Version.ToString(), result["_version"].ToString());
+            Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
             Assert.AreEqual("Null Version Project", result["Name"].ToString());
         }
 
@@ -429,7 +429,7 @@ namespace MobiFlight.Base.Migration.Tests
         {
             // Arrange - Simulate a project from a future version
             var project = new Project();
-            var futureVersion = new Version(project.Version.Major + 1, 0);
+            var futureVersion = new Version(project.SchemaVersion.Major + 1, 0);
             var futureDocument = JObject.Parse($@"{{
                 ""_version"": ""{futureVersion}"",
                 ""Name"": ""Future Project"",

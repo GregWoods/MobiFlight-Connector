@@ -17,7 +17,8 @@ namespace MobiFlight.Base
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler ProjectChanged;
 
-        public readonly Version Version = new Version(1, 1);
+        [JsonIgnore]
+        public readonly Version SchemaVersion = new Version(1, 1);
 
         private string _name;
         /// <summary>
@@ -189,13 +190,13 @@ namespace MobiFlight.Base
             // Determine current document version with safe parsing
             var currentVersion = GetDocumentVersion(document);
             
-            if (currentVersion >= Version)
+            if (currentVersion >= SchemaVersion)
             {
                 // No migration needed
                 return document;
             }
             
-            Log.Instance.log($"Migrating document from version {currentVersion} to {Version}", LogSeverity.Info);
+            Log.Instance.log($"Migrating document from version {currentVersion} to {SchemaVersion}", LogSeverity.Info);
             
             var migratedDocument = document;
             
@@ -207,9 +208,9 @@ namespace MobiFlight.Base
             }
 
             // Update version in migrated document
-            migratedDocument["_version"] = Version.ToString();
+            migratedDocument["_version"] = SchemaVersion.ToString();
 
-            Log.Instance.log($"Migration complete. Document is now version {Version}", LogSeverity.Info);
+            Log.Instance.log($"Migration complete. Document is now version {SchemaVersion}", LogSeverity.Info);
 
             return migratedDocument;
         }
@@ -265,11 +266,9 @@ namespace MobiFlight.Base
             }
 
             // Add version when serializing
-            var json = JsonConvert.SerializeObject(this, Formatting.Indented);
-            var document = JObject.Parse(json);
-            document["_version"] = Version.ToString();
-            
-            File.WriteAllText(FilePath, document.ToString());
+            var document = JObject.FromObject(this); 
+            document["_version"] = SchemaVersion.ToString(); 
+            File.WriteAllText(FilePath, document.ToString(Formatting.Indented));
         }
 
         /// <summary>
