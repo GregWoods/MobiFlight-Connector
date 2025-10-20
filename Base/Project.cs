@@ -221,6 +221,7 @@ namespace MobiFlight.Base
             {
                 Log.Instance.log("Applying V0.9 migrations", LogSeverity.Debug);
                 migratedDocument = Precondition_V_0_9_Migration.Apply(migratedDocument);
+                migratedDocument = Output_V_0_9_Migration.Apply(migratedDocument);
             }
 
             // Update version in migrated document

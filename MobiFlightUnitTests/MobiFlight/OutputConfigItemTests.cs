@@ -213,9 +213,9 @@ namespace MobiFlight.Tests
 
             if (o.DeviceType == MobiFlight.DeviceType.Output.ToString("F"))
             {
-                Assert.AreEqual((o.Device as Output).DisplayPin, (c.Device as Output).DisplayPin, "clone: DisplayPin not the same");
-                Assert.AreEqual((o.Device as Output).DisplayPinBrightness, (c.Device as Output).DisplayPinBrightness, "clone: DisplayPinBrightness not the same");
-                Assert.AreEqual((o.Device as Output).DisplayPinPWM, (c.Device as Output).DisplayPinPWM, "clone: DisplayPinPWM not the same");
+                Assert.AreEqual((o.Device as Output).Pin, (c.Device as Output).Pin, "clone: DisplayPin not the same");
+                Assert.AreEqual((o.Device as Output).Brightness, (c.Device as Output).Brightness, "clone: DisplayPinBrightness not the same");
+                Assert.AreEqual((o.Device as Output).PwmMode, (c.Device as Output).PwmMode, "clone: DisplayPinPWM not the same");
             }
 
             if (o.Device is LedModule)
@@ -320,9 +320,9 @@ namespace MobiFlight.Tests
                     o.DeviceType = MobiFlight.DeviceType.Output.ToString("F");
                     o.Device = new Output()
                     {
-                        DisplayPin = "A01",
-                        DisplayPinBrightness = byte.MinValue,
-                        DisplayPinPWM = true
+                        Pin = "A01",
+                        Brightness = byte.MinValue,
+                        PwmMode = true
                     };
                     break;
 
