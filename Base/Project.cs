@@ -137,7 +137,6 @@ namespace MobiFlight.Base
                 
                 // Parse and migrate JSON document
                 var document = JObject.Parse(json);
-                OriginalSchemaVersion = GetDocumentSchemaVersion(document);
                 var migratedDocument = ApplyMigrations(document);
                 
                 // Deserialize the clean, migrated JSON
@@ -211,7 +210,6 @@ namespace MobiFlight.Base
                 return document;
             }
 
-
             Log.Instance.log($"Migrating document from version {currentVersion} to {SchemaVersion}", LogSeverity.Info);
             
             var migratedDocument = document;
@@ -233,7 +231,7 @@ namespace MobiFlight.Base
         }
 
         /// <summary>
-        /// Safely parse the document version, defaulting to 1.0 if not present or invalid
+        /// Safely parse the document version, defaulting to 0.1 if not present or invalid
         /// </summary>
         private Version GetDocumentSchemaVersion(JObject document)
         {
@@ -257,7 +255,7 @@ namespace MobiFlight.Base
                     return parsedVersion;
                 }
 
-                // If parsing fails, default to 1.0
+                // If parsing fails, default to 0.1
                 Log.Instance.log($"Could not parse version '{versionString}', defaulting to 0.1", LogSeverity.Warn);
                 return new Version(0, 1);
             }

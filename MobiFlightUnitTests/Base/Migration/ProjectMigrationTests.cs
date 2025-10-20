@@ -84,7 +84,7 @@ namespace MobiFlight.Base.Migration.Tests
         {
             // Arrange
             var legacyProjectJson = @"{
-                ""_version"": ""1.0"",
+                ""_version"": ""0.8"",
                 ""Name"": ""Legacy Integration Project"",
                 ""ConfigFiles"": [
                     {
