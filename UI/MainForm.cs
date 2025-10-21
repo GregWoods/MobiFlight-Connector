@@ -1936,15 +1936,14 @@ namespace MobiFlight.UI
 
             if (NotConnectedJoysticks.Count > 0)
             {
-                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
-                tmd.HasCancelButton = false;
-                tmd.StartPosition = FormStartPosition.CenterParent;
-                tmd.Message = string.Format(
-                                    i18n._tr("uiMessageNotConnectedJoysticksInConfigFound"),
-                                    string.Join("\n", NotConnectedJoysticks)
-                                    );
-                tmd.Text = i18n._tr("Hint");
-                tmd.ShowDialog();
+                MessageExchange.Instance.Publish(new Notification()
+                {
+                    Event = "MissingControllerDetected",
+                    Context = new Dictionary<string, string>() {
+                        { "Type", "Joystick" },
+                        { "Serials" , string.Join(", ", NotConnectedJoysticks) }
+                    }
+                });
             }
             else if (showNotNecessaryMessage)
             {
@@ -1978,15 +1977,14 @@ namespace MobiFlight.UI
 
             if (NotConnectedMidiBoards.Count > 0)
             {
-                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
-                tmd.HasCancelButton = false;
-                tmd.StartPosition = FormStartPosition.CenterParent;
-                tmd.Message = string.Format(
-                                    i18n._tr("uiMessageNotConnectedMidiBoardsInConfigFound"),
-                                    string.Join("\n", NotConnectedMidiBoards)
-                                    );
-                tmd.Text = i18n._tr("Hint");
-                tmd.ShowDialog();
+                MessageExchange.Instance.Publish(new Notification()
+                {
+                    Event = "MissingControllerDetected",
+                    Context = new Dictionary<string, string>() {
+                        { "Type", "MidiBoard" },
+                        { "Serials" , string.Join(", ", NotConnectedMidiBoards) }
+                    }
+                });
             }
             else if (showNotNecessaryMessage)
             {
@@ -1994,8 +1992,7 @@ namespace MobiFlight.UI
             }
         }
 
-        private void _checkForOrphanedSerials(bool showNotNecessaryMessage)
-        {
+        private void showMissingControllersDialog() {
             List<string> serials = new List<string>();
 
             foreach (IModuleInfo moduleInfo in execManager.GetAllConnectedModulesInfo())
@@ -2031,7 +2028,7 @@ namespace MobiFlight.UI
                         MessageExchange.Instance.Publish(execManager.Project);
                     }
                 }
-                else if (showNotNecessaryMessage)
+                else
                 {
                     TimeoutMessageDialog.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -2040,6 +2037,47 @@ namespace MobiFlight.UI
             {
                 // do nothing
                 Log.Instance.log($"Orphaned serials exception: {ex.Message}", LogSeverity.Error);
+            }
+        }
+
+        private void _checkForOrphanedSerials(bool showNotNecessaryMessage)
+        {
+            List<string> serials = new List<string>();
+            List<string> NotConnectedBoards = new List<string>();
+
+            foreach (IModuleInfo moduleInfo in execManager.GetAllConnectedModulesInfo())
+            {
+                serials.Add($"{moduleInfo.Name}{SerialNumber.SerialSeparator}{moduleInfo.Serial}");
+            }
+
+            if (execManager.Project == null) return;
+
+            var allConfigItems = execManager.Project.ConfigFiles.SelectMany(file => file.ConfigItems).ToList();
+
+            foreach (IConfigItem item in allConfigItems)
+            {
+                if (item.ModuleSerial.Contains(MobiFlightModule.SerialPrefix) &&
+                    !serials.Contains(item.ModuleSerial) &&
+                    !NotConnectedBoards.Contains(item.ModuleSerial))
+                {
+                    NotConnectedBoards.Add(item.ModuleSerial);
+                }
+            }
+
+            if (NotConnectedBoards.Count > 0)
+            {
+                MessageExchange.Instance.Publish(new Notification()
+                {
+                    Event = "MissingControllerDetected",
+                    Context = new Dictionary<string, string>() {
+                        { "Type", "Board" },
+                        { "Serials" , string.Join(", ", NotConnectedBoards) }
+                    }
+                });
+            }
+            else if (showNotNecessaryMessage)
+            {
+                TimeoutMessageDialog.Show(i18n._tr("uiMessageNoNotConnectedMidiBoardsInConfigFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -2372,7 +2410,7 @@ namespace MobiFlight.UI
 
         public void orphanedSerialsFinderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _checkForOrphanedSerials(true);
+            showMissingControllersDialog();
         }
 
         public void donateToolStripButton_Click(object sender, EventArgs e)

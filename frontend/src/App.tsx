@@ -152,6 +152,9 @@ function App() {
       )}
       <ToastNotificationHandler />
       <Toaster
+        expand
+        visibleToasts={4}
+        toastOptions={{ duration: 10000 }}
         position="bottom-right"
         theme={theme}
         className="flex w-full justify-center ![--width:540px] xl:![--width:800px]"

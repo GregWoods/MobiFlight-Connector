@@ -8,6 +8,8 @@ export const ToastNotificationHandler = () => {
 
   useAppMessage("Notification", (message) => {
     const notification = message.payload as Notification
+    const controllerType = notification.Context?.Type ?? "Board"
+
     switch (notification.Event) {
       case "HubHopAutoUpdateCheck":
         toast({
@@ -18,6 +20,20 @@ export const ToastNotificationHandler = () => {
             label: "Update Now",
             onClick: () => {
               publish({ key: "CommandMainMenu", payload: { action: "extras.hubhop.download" } } as CommandMainMenu)
+            }
+          }
+        })
+        break
+      case "MissingControllerDetected":
+
+        toast({
+          id: "missing-controllers-detected",
+          title: "Missing Controllers Detected",
+          description: `Some ${controllerType} controllers used in this profile are currently not connected.`,
+          button: {
+            label: `Reassign ${controllerType}`,
+            onClick: () => {
+              publish({ key: "CommandMainMenu", payload: { action: "extras.serials" } } as CommandMainMenu)
             }
           }
         })

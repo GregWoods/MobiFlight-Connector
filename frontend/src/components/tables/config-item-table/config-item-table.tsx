@@ -148,9 +148,6 @@ export function ConfigItemTable<TValue>({
       title: t("ConfigList.Notification.NewConfigNotVisible.Message"),
       description: t("ConfigList.Notification.NewConfigNotVisible.Description"),
       id: "reset-filter",
-      options: {
-        duration: 5000,
-      },
       button: {
         label: t("ConfigList.Notification.NewConfigNotVisible.Action"),
         onClick: () => {
