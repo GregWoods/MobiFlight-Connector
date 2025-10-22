@@ -40,6 +40,7 @@ namespace MobiFlight.UI
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
+        private static int HUBHOP_UPDATE_DAYS = 7;
 
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
@@ -855,7 +856,7 @@ namespace MobiFlight.UI
 
             HubHopState.LastUpdate = lastModification;
 
-            if (lastModification > DateTime.UtcNow.AddDays(-0))
+            if (lastModification > DateTime.UtcNow.AddDays(-HUBHOP_UPDATE_DAYS))
                 return;
 
             if (!Properties.Settings.Default.HubHopAutoCheck)
