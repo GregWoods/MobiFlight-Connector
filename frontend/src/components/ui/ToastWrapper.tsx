@@ -1,8 +1,9 @@
 import { toast as sonnerToast } from "sonner"
 import Toast, { ToastProps } from "./Toast"
+import { ToastProvider } from "./ToastContext"
 
 export const toast = (props: ToastProps) => {
-  const { button, options } = props
+  const { button, options, onCancel } = props
 
   return sonnerToast.custom(
     (id) => {
@@ -14,15 +15,19 @@ export const toast = (props: ToastProps) => {
                 button.onClick()
                 sonnerToast.dismiss(id)
               },
-              onCancel: () => {
-                button.onCancel?.()
-                sonnerToast.dismiss(id)
-              },
+            },
+            onCancel: () => {
+              onCancel?.()
+              sonnerToast.dismiss(id)
             },
           }
         : {}
 
-      return <Toast {...props} {...extendedButton} />
+      return (
+        <ToastProvider toastId={id} dismiss={() => sonnerToast.dismiss(id)}>
+          <Toast {...props} {...extendedButton} />
+        </ToastProvider>
+      )
     },
     { ...options },
   )

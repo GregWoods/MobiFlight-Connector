@@ -35,7 +35,6 @@ export const ToastNotificationHandler = () => {
 
   useAppMessage("HubHopState", (message) => {
     const status = message.payload
-    console.log("HubHopState message received", status)
     if (status.ShouldUpdate && status.Result === "Pending") {
       toast({
         id: "hubhop-auto-update",
@@ -58,7 +57,7 @@ export const ToastNotificationHandler = () => {
       toast({
         id: "hubhop-auto-update",
         title: t("General.HubHopUpdate.Title.Downloading"),
-        description: <HubHopUpdateToast id="hubhop-auto-update" timeout={2000} />,
+        description: <HubHopUpdateToast timeout={2000} />,
         options: {
           duration: Infinity, // Keep it open until completed
         }

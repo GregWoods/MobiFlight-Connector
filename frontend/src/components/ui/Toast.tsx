@@ -9,18 +9,18 @@ export interface ToastProps {
   button?: {
     label: string
     onClick: () => void
-    onCancel?: () => void
   }
+  onCancel?: () => void
   id: string | number
   options?: ExternalToast
 }
 
-export const Toast = ({ description, title, button, id }: ToastProps) => {
+export const Toast = ({ description, title, button, id, onCancel }: ToastProps) => {
   return (
     <Alert
       data-testid={`toast-${id}`}
       className="border-primary flex flex-col gap-1 border-2 p-4 pt-3 shadow-xl w-[540px]"
-      onClick={button?.onCancel}
+      onClick={onCancel}
     >
       <AlertTitle className="text-md flex flex-row items-center justify-between">
         {title}
