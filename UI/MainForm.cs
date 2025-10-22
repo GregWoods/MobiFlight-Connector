@@ -979,7 +979,6 @@ namespace MobiFlight.UI
                 {
                 }
             }
-            ;
         }
 
         private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)

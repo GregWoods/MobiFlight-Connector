@@ -43,9 +43,10 @@ test("Confirm HubHop update notifications show correctly", async ({
     }
   )
 
+  const progressBar = hubhopToast.getByRole("progressbar")
   await expect(hubhopToast).toHaveCount(1)
   await expect(hubhopToast).toBeVisible()
-  await expect(hubhopToast.getByRole("progressbar")).toBeVisible()
+  await expect(progressBar).toBeVisible()
 
   await configListPage.mobiFlightPage.publishCommand(
     { key: "HubHopState" ,
@@ -57,5 +58,5 @@ test("Confirm HubHop update notifications show correctly", async ({
     }
   )
 
-  await expect(page.getByTestId("hubhop-auto-update")).not.toBeVisible({ timeout: 5000 })
+  await expect(hubhopToast).not.toBeVisible({ timeout: 5000 })
 })
