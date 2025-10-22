@@ -33,7 +33,7 @@ const HubHopUpdateToast = ({ id, timeout = 2000 }: HubHopUpdateToastProps) => {
     </div>
   ) : (
     <div className="flex flex-row items-center gap-2">
-      <IconCircleXFilled className="fill-red-700" /> HubHop update
+      <IconCircleXFilled className="fill-red-700" />
       <div>{ t("General.HubHopUpdate.Error") }</div>
     </div>
   )

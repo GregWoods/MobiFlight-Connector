@@ -1982,8 +1982,7 @@ namespace MobiFlight.UI
                 serials.Add($"{moduleInfo.Name}{SerialNumber.SerialSeparator}{moduleInfo.Serial}");
             }
 
-            // Preserve previous behavior: uses the same "no connected" message key as before
-            CheckForOrphanedControllers(serials, MobiFlightModule.SerialPrefix, "Board", showNotNecessaryMessage, "uiMessageNoNotConnectedMidiBoardsInConfigFound");
+            CheckForOrphanedControllers(serials, MobiFlightModule.SerialPrefix, "Board", showNotNecessaryMessage, "uiMessageNoOrphanedSerialsFound");
         }
 
         private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)
@@ -2381,7 +2380,6 @@ namespace MobiFlight.UI
                 e.Cancel = (execManager.Project.FilePath == null);
                 saveToolStripButton_Click(this, new EventArgs());
             }
-            ;
         }
 
         public void documentationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2586,7 +2584,6 @@ namespace MobiFlight.UI
                     i18n._tr("uiMessageWasmUpdater"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            ;
 
             progressForm.Dispose();
         }
@@ -2809,7 +2806,6 @@ namespace MobiFlight.UI
             {
                 saveToolStripButton_Click(this, new EventArgs());
             }
-            ;
 
             LoadConfig(linkedFile);
         }
