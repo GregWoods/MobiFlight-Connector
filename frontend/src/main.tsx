@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router"
 import { ThemeProvider } from "./components/theme-provider.tsx"
 import ConfigListPage from "./pages/ConfigList.tsx"
 import { TooltipProvider } from "./components/ui/tooltip.tsx"
+import Dashboard from "./pages/Dashboard.tsx"
 
 if (process.env.NODE_ENV !== "development") {
   console.log = () => {}
@@ -22,7 +23,9 @@ createRoot(document.getElementById("root")!).render(
     <TooltipProvider skipDelayDuration={0}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/home" element={<App />} >
+            <Route index element={<Dashboard />} />
+          </Route>
           <Route path="/config" element={<App />}>
             <Route index element={<ConfigListPage />} />
           </Route>
