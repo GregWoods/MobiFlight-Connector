@@ -67,6 +67,12 @@ namespace MobiFlight.UI.Dialogs
 #if !MOBIFLIGHT
             tabControl1.TabPages.Remove(mobiFlightTabPage);
 #endif
+
+#if BLE
+            //blePanel.Init(execManager.getMobiFlightModuleCache());
+#else
+            //tabControl1.TabPages.Remove(bleTabPage);
+#endif
             peripheralsPanel.Init(execManager.GetJoystickManager(), execManager.GetMidiBoardManager());
             loadSettings();
         }
