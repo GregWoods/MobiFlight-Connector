@@ -172,10 +172,6 @@ export function ConfigItemTable<TValue>({
   })
 
   useEffect(() => {
-    console.log("added item", addedItem.current)
-  }, [addedItem])
-
-  useEffect(() => {
     if (addedItem.current && data.length === prevDataLength.current + 1) {
       addedItem.current = false
       const lastItem = data[data.length - 1] as IConfigItem
@@ -280,7 +276,7 @@ export function ConfigItemTable<TValue>({
   ])
 
   return (
-    <div className="flex grow flex-col gap-2 overflow-y-auto">
+    <div className="flex grow flex-col gap-2 overflow-y-auto px-2">
       <div className="flex grow flex-col gap-2 overflow-y-auto">
         <div className="p-1">
           <DataTableToolbar

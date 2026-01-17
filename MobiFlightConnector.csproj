@@ -128,11 +128,13 @@
     <Reference Include="Hid.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Hid.Net.4.2.1\lib\net45\Hid.Net.dll</HintPath>
     </Reference>
-    <Reference Include="HidSharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\HidSharp.2.1.0\lib\net35\HidSharp.dll</HintPath>
+    <Reference Include="HidSharp, Version=2.6.4.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>packages\HidSharp.2.6.4\lib\net35\HidSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.21.0.429, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.ApplicationInsights, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
@@ -141,14 +143,17 @@
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
       <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3124.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.3124.44\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3650.58, Culture=neutral, PublicKeyToken=2a8ab48044d2601e">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.3650.58\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3124.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.3124.44\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3650.58, Culture=neutral, PublicKeyToken=2a8ab48044d2601e">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.3650.58\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3124.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.3124.44\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3650.58, Culture=neutral, PublicKeyToken=2a8ab48044d2601e">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.3650.58\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Midi">
       <HintPath>lib\Midi.dll</HintPath>
@@ -159,18 +164,20 @@
     <Reference Include="NCalc">
       <HintPath>lib\NCalc.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json.Schema, Version=3.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.Schema.3.0.15\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
+    <Reference Include="Newtonsoft.Json.Schema, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>packages\Newtonsoft.Json.Schema.4.0.1\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
-      <HintPath>packages\protobuf-net.3.2.46\lib\net462\protobuf-net.dll</HintPath>
+      <HintPath>packages\protobuf-net.3.2.56\lib\net462\protobuf-net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="protobuf-net.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
-      <HintPath>packages\protobuf-net.Core.3.2.46\lib\net462\protobuf-net.Core.dll</HintPath>
+      <HintPath>packages\protobuf-net.Core.3.2.56\lib\net462\protobuf-net.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
@@ -186,41 +193,46 @@
       <HintPath>packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.CodeDom, Version=9.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>packages\System.CodeDom.9.0.4\lib\net462\System.CodeDom.dll</HintPath>
+    <Reference Include="System.CodeDom, Version=10.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.CodeDom.10.0.2\lib\net462\System.CodeDom.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Collections.Immutable, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Collections.Immutable.7.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
+    <Reference Include="System.Collections.Immutable, Version=10.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>packages\System.Collections.Immutable.10.0.1\lib\net462\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Diagnostics.DiagnosticSource.7.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.10.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Management" />
-    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.WebSockets.Client.Managed, Version=1.0.22.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\System.Net.WebSockets.Client.Managed.1.0.22\lib\net45\System.Net.WebSockets.Client.Managed.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reactive, Version=6.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>packages\System.Reactive.6.0.0\lib\net472\System.Reactive.dll</HintPath>
+    <Reference Include="System.Reactive, Version=6.1.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>packages\System.Reactive.6.1.0\lib\net472\System.Reactive.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -233,6 +245,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="vJoyInterfaceWrap, Version=0.2.1.6, Culture=neutral, processorArchitecture=x86">
@@ -242,6 +256,7 @@
     <Reference Include="websocket-sharp, Version=1.0.1.0, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
       <HintPath>packages\WebSocketSharp-netstandard.1.0.1\lib\net45\websocket-sharp.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
     <Reference Include="XPlaneConnector, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\XPlaneConnector.1.3.0\lib\netstandard2.0\XPlaneConnector.dll</HintPath>
     </Reference>
@@ -250,10 +265,19 @@
     <Content Include="frontend\dist\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\Winwing\rotate_md80.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\ini_a340_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\Winwing\toliss_a3xx.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\Winwing\zibo_737_800x.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\microsoft_aircraft_ec135.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -281,6 +305,7 @@
     <Compile Include="Base\Project.cs" />
     <Compile Include="Base\Serialization\Json\DeviceConfigConverter.cs" />
     <Compile Include="Base\Serialization\Json\ConfigValueOnlyItemConverter.cs" />
+    <Compile Include="Base\Serialization\Json\PreconditionConverter.cs" />
     <Compile Include="Base\Serialization\Json\SourceConverter.cs" />
     <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\i18n.cs" />
@@ -307,6 +332,8 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandMainMenu.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandFileContexMenu.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandDiscardChanges.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandOpenLinkInBrowser.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUpdateConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigContexMenu.cs" />
     <Compile Include="Base\Serialization\Json\ConfigItemConverter.cs" />
@@ -316,6 +343,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Handler\CommandMainMenuHandler.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\RecentProjects.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValuePartialUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValueFullUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValueRawAndFinalUpdate.cs" />
@@ -342,6 +370,10 @@
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
+    <Compile Include="MobiFlight\Controllers\ControllerAutoBinder.cs" />
+    <Compile Include="MobiFlight\Controllers\ControllerBinding.cs" />
+    <Compile Include="MobiFlight\Controllers\ControllerBindingService.cs" />
+    <Compile Include="MobiFlight\Controllers\ControllerBindingStatus.cs" />
     <Compile Include="MobiFlight\CustomDevices\CustomDevice.cs" />
     <Compile Include="MobiFlight\CustomDevices\CustomDeviceDefinitions.cs" />
     <Compile Include="MobiFlight\DeviceType.cs" />
@@ -358,6 +390,9 @@
     <Compile Include="MobiFlight\InputConfig\ProSimInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
+    <Compile Include="MobiFlight\Joysticks\AuthentiKit\AuthentiKit.cs" />
+    <Compile Include="MobiFlight\Joysticks\AuthentiKit\AuthentiKitReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\ControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\HidControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
     <Compile Include="MobiFlight\ControllerDefinitionMigrator.cs" />
@@ -376,15 +411,14 @@
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCube.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReport.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingAirbusSidestick.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\Winwing3Pdc.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingBaseController.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3Report.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingCdu.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingConstants.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingControllerFactory.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcu.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcuReport.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingAirbusThrottle.cs" />
     <Compile Include="MobiFlight\JsonBackedObject.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoard.cs" />
@@ -429,6 +463,7 @@
     <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
     <Compile Include="MobiFlight\PortDetails.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\CduChar.cs" />
+    <Compile Include="MobiFlight\Scripts\PythonEnvironment.cs" />
     <Compile Include="MobiFlight\Scripts\UserMessageCodes.cs" />
     <Compile Include="MobiFlight\ThreadSafeWebView2.cs">
       <SubType>Component</SubType>
@@ -1129,6 +1164,9 @@
     <Content Include="Scripts\Winwing\fslabs_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\Winwing\hotstart_cl650.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\Winwing\ifly_737_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1166,10 +1204,19 @@
     <None Include="Boards\arduino_uno.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Boards\config\prototyping-board.mega.multiplexer.smd.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Boards\config\prototyping-board.mega.multiplexer.mfmc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Boards\config\prototyping-board.v2.1.mega.multiplexer.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Boards\config\prototyping-board.mega.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Boards\config\prototyping-board.v2.1.mega.mfmc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Boards\mfboard.schema.json">
@@ -1232,6 +1279,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.raspberry_pico_flash_nuke.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\bodnar\authentikit.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\vkbsim\s_tecs_modern_throttle_max.joystick.json">
@@ -1381,6 +1431,9 @@
     <None Include="Joysticks\vkbsim\vkbsim_nxt_thqx3_fsm_ga.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\winwing\winwing_ecam.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Joysticks\winwing\winwing_3mpdc_right.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1409,6 +1462,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\winwing\winwing_fcu_efisr.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_agp.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\winwing\winwing_pfp4_captain.joystick.json">
@@ -2185,475 +2241,7 @@
     <Folder Include="Release\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Community\CoreFlightTech\boards\board-logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech.adf.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech.atc.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech.comm.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech.efis.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech.fcu.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech.landinggear.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech.mcp.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech.nav.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech_adf_nano.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech_atc_nano.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech_comm_nano.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech_efis_nano.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech_fcu_mega.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech_landinggear_nano.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech_mcp_mega.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\boards\coreflighttech_nav_nano.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_adf_fo_nano.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_adf_nano.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_atc_nano.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_comm_fo_nano.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_comm_nano.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_efis_fo_nano.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_efis_nano.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_fcu_mega.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_landinggear_nano.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_mcp_mega.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_nav_fo_nano.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\config\coreflighttech_nav_nano.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_adf_nano_1_0_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_atc_nano_1_0_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_comm_nano_1_0_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_efis_nano_1_0_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_fcu_mega_9_0_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_landinggear_nano_1_0_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_mcp_mega_1_0_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_nav_nano_1_0_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\firmware\reset.arduino_mega_1_0_2.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\firmware\reset.arduino_uno_1_0_2.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\msfs2020\generic\MSFS2020_LandingGearLever_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\ADF\MSFS2020_PMDG737_CPT_ADF_RADIO_v3.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\ATC\MSFS2020_PMDG737_CPT_ATC_RADIO_v7.2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\COMM\MSFS2020_PMDG737_CPT_COMM_RADIO_v3.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\COMM\MSFS2020_PMDG737_FO_COMM_RADIO_v4.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\EFIS\MSFS2020_PMDG737_CPT_EFIS_v3.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\EFIS\MSFS2020_PMDG737_FO_EFIS_v5.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\Landing Gear Lever\MSFS2020_PMDG737_LandingGearLever_v2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\NAV\MSFS2020_PMDG737_CPT_NAV_RADIO_v4.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\NAV\MSFS2020_PMDG737_FO_NAV_RADIO_v4.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\ADF\P3D_PMDG737_CPT_ADF_RADIO_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\ADF\P3D_PMDG737_FO_ADF_RADIO_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\COMM\P3D_PMDG737_CPT_COMM_RADIO_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\COMM\P3D_PMDG737_FO_COMM_RADIO_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\EFIS\P3D_PMDG737-800_CPT_EFIS_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\EFIS\P3D_PMDG737-800_FO_EFIS_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\NAV\P3D_PMDG737_CPT_NAV_RADIO_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\NAV\P3D_PMDG737_FO_NAV_RADIO_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\ADF\XP11_ZIBO737_CPT_ADF_RADIO_v2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\ADF\XP11_ZIBO737_FO_ADF_RADIO_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\ATC\X-P11_Zibo737_ATC_v4.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\COMM\XP11_ZIBO737_CPT_COMM_RADIO_v3.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\COMM\XP11_ZIBO737_FO_COMM_RADIO_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\EFIS\XP11_ZIBO737_EFIS_CPT_v2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\EFIS\XP11_ZIBO737_EFIS_FO_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\LandingGearLever\XP11_ZIBO737_LandingGearLever_v2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\MCP\XPlane11_Zibo737_MCP_v5.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\NAV\XP11_ZIBO737_CPT_NAV_RADIO_v2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\NAV\XP11_ZIBO737_FO_NAV_RADIO_v1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane12\ADF\XP12_Zibo737_CPT_ADF_RADIO_v3.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\boards\board-logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\boards\gnc255_raspberrypico.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\boards\mobiflight_GNC255_pico.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\config\MF255-0.9.1.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\devices\mobiflight.gnc255.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\firmware\gnc255_raspberrypico_0_9_1.uf2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\firmware\reset.arduino_mega_1_0_2.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\firmware\reset.raspberry_pico_flash_nuke.uf2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\gnc255-msfs2020-1.2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\S-5.2_GENERIC_GNC255-V12_DEV_COM1-2NAV1-2ADFQNHXPDR.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\X-1.6_FENIX_A320_-_GNC255-V5_VHF1-2-3_QNH_XPDR.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\X-5.2_COMANCHE_250_-_GNC255-V3_COM1-2NAV1-2ADFQNHXPDR.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\boards\board-logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\boards\kav_mega.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\boards\kav_pico.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\config\KavSim Glareshield Board Config v1-1-0.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\config\KavSim Overhead Board Config v1-1-0.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\config\KavSim Pedestal Board Config v1-1-0.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\devices\kav_battery.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\devices\kav_efis.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\devices\kav_fcu.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\devices\kav_rad_tcas.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\devices\kav_rudder.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\firmware\kav_mega_2_6_1.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\firmware\kav_raspberrypico_2_6_1.uf2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\firmware\reset.arduino_mega_1_0_2.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\firmware\reset.raspberry_pico_flash_nuke.uf2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\FBWA320 Battery new.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\Fenix A320\FENIX - KAV FIRMWARE V2-0-0-378 %28QUARTZ%29.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\Fenix A320\FENIX - KAV FIRMWARE V2-0-0-392 %28FULL COCKPIT - NO QUARTZ%29.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\Fenix A320\FENIX - KAV FIRMWARE V2-0-0-392 %28NO QUARTZ%29.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\Fenix A320\README.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\FlyByWire A320\KavSim FBWA320 All-In-One Config V2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\FlyByWire A320\KavSim FBWA320 Glareshield Config V2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\FlyByWire A320\KavSim FBWA320 Overhead Config V2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\FlyByWire A320\KavSim FBWA320 Pedestal Config V2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\Headwind A330\KavSim HWA320 All-In-One Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\Headwind A330\KavSim HWA320 Glareshield Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\Headwind A330\KavSim HWA320 Overhead Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\Headwind A330\KavSim HWA320 Pedestal Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\iniBuilds A310\KavSim iniA310 All-In-One Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\iniBuilds A310\KavSim iniA310 Glareshield Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\iniBuilds A310\KavSim iniA310 Overhead Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\iniBuilds A310\KavSim iniA310 Pedestal Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\Rudder String support FBWA320.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\z_development\FBWA320 EFIS new.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\msfs2020\z_development\FBWA320 FCU new.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\p3d\KavSim JeeHellA320 All-In-One Config V2.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\p3d\KavSim JeeHellA320 Glareshield Config V1.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\README.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\xplane12\FlightFactor A320\KavSim FFA320 All-In-One Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\xplane12\FlightFactor A320\Modified FFA320_Connector.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\xplane12\JD-A330\KavSim JD-A330 All-In-One Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\xplane12\Toliss\KavSim TolissA3x All-In-One Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\xplane12\Toliss\KavSim TolissA3x Glareshield Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\xplane12\Toliss\KavSim TolissA3x Overhead Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\kavSimulations\profiles\xplane12\Toliss\KavSim TolissA3x Pedestal Config.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MadMonkey\boards\mini_overhead_panel_raspberry_pico.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MadMonkey\config\Mini OverheadSMD.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MadMonkey\firmware\mini_overhead_panel_raspberrypico_1_0_0.uf2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MadMonkey\firmware\reset.raspberry_pico_flash_nuke.uf2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MadMonkey\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MadMonkey\profile\msfs2020\Mini Overhead SMD - FBW.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MadMonkey\profile\msfs2020\Mini Overhead SMD - Fenix.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MadMonkey\profile\msfs2020\Mini Overhead SMD - Toliss.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\miniCOCKPIT\boards\board-logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\miniCOCKPIT\boards\miniCOCKPIT_miniFCU_mega.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\miniCOCKPIT\config\miniCOCKPIT_miniFCU_mega.mfmc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\miniCOCKPIT\devices\miniCOCKPIT_miniEFIS.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\miniCOCKPIT\devices\miniCOCKPIT_miniFCU_mega.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\miniCOCKPIT\firmware\reset.miniFCU_20241117.ino.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\miniCOCKPIT\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\miniCOCKPIT\profiles\msfs2020\FBW-a320.mcc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\boards\board-logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\boards\mobiflight_genericI2C_mega.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\boards\mobiflight_genericI2C_raspberry_pico.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\boards\mobiflight_GNC255_mega.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\boards\mobiflight_GNC255_pico.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\devices\mobiflight.genericI2C.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\devices\mobiflight.gnc255.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\firmware\mobiflight_genericI2C_mega_2_5_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\firmware\mobiflight_genericI2C_raspberrypico_2_5_0.uf2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\firmware\mobiflight_gnc255_mega_2_5_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\firmware\mobiflight_gnc255_raspberrypico_2_5_0.uf2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\firmware\reset.arduino_mega_1_0_2.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Community\MobiFlight\firmware\reset.raspberry_pico_flash_nuke.uf2">
+    <Content Include="Community\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -2676,6 +2264,7 @@
 xcopy /R /Y "$(ProjectDir)Lib\x86\SimConnect.dll" "$(TargetDir)"
 xcopy /R /E /Y /I "$(ProjectDir)MSFS2020-module" "$(TargetDir)MSFS2020-module"
 xcopy /R /E /Y /I "$(ProjectDir)Arduino" "$(TargetDir)Arduino"
+xcopy /R /E /Y /I /D "$(ProjectDir)Python\*.zip" "$(TargetDir)Python\"
 del "$(TargetDir)\log.txt"
 del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt"</PreBuildEvent>
   </PropertyGroup>
@@ -2683,11 +2272,11 @@ del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
-    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.3124.44\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.3124.44\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.3650.58\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.3650.58\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
-  <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
-  <Import Project="packages\Microsoft.Web.WebView2.1.0.3124.44\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.3124.44\build\Microsoft.Web.WebView2.targets')" />
+  <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Import Project="packages\Microsoft.Web.WebView2.1.0.3650.58\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.3650.58\build\Microsoft.Web.WebView2.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

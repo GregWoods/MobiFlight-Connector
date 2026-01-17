@@ -49,6 +49,7 @@ namespace MobiFlight.UI.Dialogs
 
         bool IsShown = false;
         public PreconditionPanel PreconditionPanel { get { return preconditionPanel; } }
+        ProjectInfo ProjectInfo { get; set; }
 
         public InputConfigWizard(IExecutionManager executionManager,
                              InputConfigItem cfg,
@@ -57,7 +58,8 @@ namespace MobiFlight.UI.Dialogs
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
                              List<OutputConfigItem> outputConfigItems,
-                             Dictionary<string, MobiFlightVariable> scopedVariables)
+                             Dictionary<string, MobiFlightVariable> scopedVariables,
+            ProjectInfo projectInfo)
         {
             Init(executionManager, cfg);
 #if ARCAZE
@@ -89,6 +91,8 @@ namespace MobiFlight.UI.Dialogs
             {
                 this.Text = $"{this.Text} - {cfg.Name}";
             }
+
+            ProjectInfo = projectInfo;
         }
 
         private void initConfigRefDropDowns(List<OutputConfigItem> dataSetConfig, string filterGuid)
@@ -320,6 +324,24 @@ namespace MobiFlight.UI.Dialogs
         }
 
         /// <summary>
+        /// Clears all config objects except the specified device type to prevent incorrect input event matching
+        /// </summary>
+        /// <param name="keepDeviceType">The device type to keep, all others will be cleared</param>
+        private void ClearUnusedConfigObjects(DeviceType keepDeviceType)
+        {
+            if (keepDeviceType != DeviceType.Button)
+                config.button = null;
+            if (keepDeviceType != DeviceType.Encoder)
+                config.encoder = null;
+            if (keepDeviceType != DeviceType.InputShiftRegister)
+                config.inputShiftRegister = null;
+            if (keepDeviceType != DeviceType.InputMultiplexer)
+                config.inputMultiplexer = null;
+            if (keepDeviceType != DeviceType.AnalogInput)
+                config.analog = null;
+        }
+
+        /// <summary>
         /// sync current status of form values to config
         /// </summary>
         /// <returns></returns>
@@ -385,6 +407,9 @@ namespace MobiFlight.UI.Dialogs
                     config.DeviceName = InputConfigItem.TYPE_NOTSET;
                     break;
             }
+
+            // Clear unused config objects after switching device type to prevent incorrect input event matching
+            ClearUnusedConfigObjects(currentInputType);
 
             return true;
         }
@@ -560,7 +585,9 @@ namespace MobiFlight.UI.Dialogs
                     case DeviceType.Button:
                         panel = new Panels.Input.ButtonPanel()
                         {
-                            Enabled = (serial != "")
+                            Enabled = (serial != ""),
+                            ProjectInfo = this.ProjectInfo,
+                            CurrentConfig = Config
                         };
                         (panel as Panels.Input.ButtonPanel).syncFromConfig(config.button);
                         break;
@@ -568,7 +595,9 @@ namespace MobiFlight.UI.Dialogs
                     case DeviceType.Encoder:
                         panel = new Panels.Input.EncoderPanel()
                         {
-                            Enabled = (serial != "")
+                            Enabled = (serial != ""),
+                            ProjectInfo = this.ProjectInfo,
+                            CurrentConfig = Config,
                         };
                         (panel as Panels.Input.EncoderPanel).syncFromConfig(config.encoder);
                         break;
@@ -577,7 +606,9 @@ namespace MobiFlight.UI.Dialogs
                         Config.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Config.IBaseDevice>).Value as Config.InputShiftRegister;
                         panel = new Panels.Input.ButtonPanel()
                         {
-                            Enabled = (serial != "")
+                            Enabled = (serial != ""),
+                            ProjectInfo = this.ProjectInfo,
+                            CurrentConfig = Config
                         };
                         (panel as Panels.Input.ButtonPanel).syncFromConfig(config.inputShiftRegister);
                         PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.ExtPin);
@@ -588,7 +619,9 @@ namespace MobiFlight.UI.Dialogs
                         Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.IBaseDevice>).Value as Config.InputMultiplexer;
                         panel = new Panels.Input.ButtonPanel()
                         {
-                            Enabled = (serial != "")
+                            Enabled = (serial != ""),
+                            ProjectInfo = this.ProjectInfo,
+                            CurrentConfig = Config
                         };
                         (panel as Panels.Input.ButtonPanel).syncFromConfig(config.inputMultiplexer);
                         PopulateInputPinDropdown(Convert.ToInt32(selectedInputMultiplexer.NumBytes), config.inputMultiplexer?.DataPin);
@@ -598,7 +631,9 @@ namespace MobiFlight.UI.Dialogs
                     case DeviceType.AnalogInput:
                         panel = new Panels.Input.AnalogPanel()
                         {
-                            Enabled = (serial != "")
+                            Enabled = (serial != ""),
+                            ProjectInfo = this.ProjectInfo,
+                            CurrentConfig = Config
                         };
                         (panel as Panels.Input.AnalogPanel).syncFromConfig(config.analog);
                         break;

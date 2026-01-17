@@ -7,7 +7,7 @@ test("Confirm save menu item behaves as expected", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
 
   const FileMenu = page.getByRole("menubar").getByRole("menuitem", { name: "File" })
   await expect(FileMenu).toBeVisible()
@@ -34,7 +34,7 @@ test("Confirm accelerator keys are working correctly", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
   await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
 
   for(const accelerator of GlobalKeyAccelerators) {
@@ -51,4 +51,74 @@ test("Confirm accelerator keys are working correctly", async ({
     const lastCommand = trackedCommands.pop() as CommandMessage
     expect(lastCommand).toEqual(accelerator.message)
   }
+})
+
+test("Confirm zoom menu items are present in View menu", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.initWithTestData()
+
+  const ViewMenu = page.getByRole("menubar").getByRole("menuitem", { name: "View" })
+  await expect(ViewMenu).toBeVisible()
+
+  await ViewMenu.click()
+  
+  // Check for direct zoom menu items (not a submenu)
+  const ResetZoomItem = page.getByRole("menuitem", { name: "Reset Zoom Ctrl+0" })
+  await expect(ResetZoomItem).toBeVisible()
+  
+  const ZoomInItem = page.getByRole("menuitem", { name: "Zoom In Ctrl++" })
+  await expect(ZoomInItem).toBeVisible()
+  
+  const ZoomOutItem = page.getByRole("menuitem", { name: "Zoom Out Ctrl+-" })
+  await expect(ZoomOutItem).toBeVisible()
+})
+
+test("Confirm zoom menu items send correct commands", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.initWithTestData()
+  await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
+
+  const ViewMenu = page.getByRole("menubar").getByRole("menuitem", { name: "View" })
+  await ViewMenu.click()
+  
+  // Test Reset Zoom
+  const ResetZoomItem = page.getByRole("menuitem", { name: "Reset Zoom Ctrl+0" })
+  await ResetZoomItem.click()
+  
+  let commands = await configListPage.mobiFlightPage.getTrackedCommands()
+  expect(commands).toHaveLength(1)
+  expect(commands![0].key).toBe("CommandMainMenu")
+  expect(commands![0].payload.action).toBe("view.zoom.reset")
+  
+  // Clear commands array for next test
+  await page.evaluate(() => { window.commands = [] })
+  
+  // Test Zoom In
+  await ViewMenu.click()
+  const ZoomInItem = page.getByRole("menuitem", { name: "Zoom In Ctrl++" })
+  await ZoomInItem.click()
+  
+  commands = await configListPage.mobiFlightPage.getTrackedCommands()
+  expect(commands).toHaveLength(1)
+  expect(commands![0].key).toBe("CommandMainMenu")
+  expect(commands![0].payload.action).toBe("view.zoom.in")
+  
+  // Clear commands array for next test
+  await page.evaluate(() => { window.commands = [] })
+  
+  // Test Zoom Out
+  await ViewMenu.click()
+  const ZoomOutItem = page.getByRole("menuitem", { name: "Zoom Out Ctrl+-" })
+  await ZoomOutItem.click()
+  
+  commands = await configListPage.mobiFlightPage.getTrackedCommands()
+  expect(commands).toHaveLength(1)
+  expect(commands![0].key).toBe("CommandMainMenu")
+  expect(commands![0].payload.action).toBe("view.zoom.out")
 })

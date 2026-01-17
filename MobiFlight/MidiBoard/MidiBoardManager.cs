@@ -88,7 +88,7 @@ namespace MobiFlight
             var rawDefinitions = JsonBackedObject.LoadDefinitions<MidiBoardDefinition>(
                 jsonFiles,
                 schemaFilePath,
-                onSuccess: (midiboard, definitionFile) => Log.Instance.log($"Loaded midiBoard definition for {midiboard.InstanceName}", LogSeverity.Info),
+                onSuccess: (midiboard, definitionFile) => Log.Instance.log($"Loaded midiBoard definition for {midiboard.InstanceName}", LogSeverity.Debug),
                 onError: () => LoadingError = true
             );
 
@@ -169,7 +169,7 @@ namespace MobiFlight
             ExcludedMidiBoards.Clear();
         }
 
-        public List<MidiBoard> GetMidiBoards()
+        public virtual List<MidiBoard> GetMidiBoards()
         {
             return MidiBoards;
         }

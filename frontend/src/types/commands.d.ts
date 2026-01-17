@@ -11,6 +11,8 @@ export type CommandMessageKey =
   | "CommandAddConfigFile"
   | "CommandMainMenu"
   | "CommandProjectToolbar"
+  | "CommandDiscardChanges"
+  | "CommandOpenLinkInBrowser"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -23,6 +25,8 @@ export type CommandMessage =
   | CommandAddConfigFile
   | CommandMainMenu
   | CommandProjectToolbar
+  | CommandDiscardChanges
+  | CommandOpenLinkInBrowser
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -117,11 +121,15 @@ export type CommandMainMenuPayload = {
     | "file.saveas"
     | "file.exit"
     | "file.recent"
+    | "project.edit"
     | "extras.hubhop.download"
     | "extras.msfs.reinstall"
     | "extras.copylogs"
     | "extras.serials"
     | "extras.settings"
+    | "view.zoom.in"
+    | "view.zoom.out"
+    | "view.zoom.reset"
     | "help.docs"
     | "help.checkforupdate"
     | "help.discord"
@@ -130,7 +138,13 @@ export type CommandMainMenuPayload = {
     | "help.about"
     | "help.releasenotes"
     | "help.donate"
+    // virtual menu actions
+    | "virtual.recent.remove"
   index?: number
+  options?: {
+    project?: ProjectInfo
+    filePath?: string
+  }
 }
 
 export interface CommandMainMenu extends CommandMessageBase {
@@ -151,4 +165,18 @@ export type CommandProjectToolbarPayload = {
 export interface CommandProjectToolbar extends CommandMessageBase {
   key: "CommandProjectToolbar"
   payload: CommandProjectToolbarPayload
+}
+
+export interface CommandDiscardChanges extends CommandMessageBase {
+  key: "CommandDiscardChanges"
+  payload: {
+    project: Project
+  }
+}
+
+export interface CommandOpenLinkInBrowser extends CommandMessageBase {
+  key: "CommandOpenLinkInBrowser"
+  payload: {
+    url: string
+  }
 }

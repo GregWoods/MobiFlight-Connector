@@ -61,7 +61,8 @@ namespace MobiFlight
 
         public MobiFlightCache()
         {
-            keepAwakeTimer.Interval = KeepAwakeIntervalInMinutes * 60 * 1000; // convert to milliseconds
+            // ticks every KeepAwakeIntervalInMinutes
+            keepAwakeTimer.Interval = KeepAwakeIntervalInMinutes * 60 * 1000;
             keepAwakeTimer.Tick += (s, e) => DeactivateConnectedModulePowerSave();
         }
 
@@ -328,7 +329,7 @@ namespace MobiFlight
             return AvailableComModules;
         }
 
-        public IEnumerable<MobiFlightModule> GetModules()
+        public virtual IEnumerable<MobiFlightModule> GetModules()
         {
             if (!Available())
                 return new List<MobiFlightModule>();
@@ -866,6 +867,7 @@ namespace MobiFlight
 
         public void StartKeepAwake()
         {
+            DeactivateConnectedModulePowerSave();
             keepAwakeTimer.Start();
         }
 

@@ -1,6 +1,11 @@
 import { CommandMessageKey, CommandMessage } from "@/types/commands"
 import { AppMessage } from "@/types/messages"
 import type { Locator, Page } from "@playwright/test"
+import testProject from "../data/project.testdata.json" with { type: "json" }
+import recentProjects from "../data/recentProjects.testdata.json" with { type: "json" }
+import { Project } from "@/types"
+import { ProjectInfo } from "@/types/project"
+
 
 declare global {
   interface Window {
@@ -99,5 +104,75 @@ export class MobiFlightPage {
 
   getTooltipByText(text: string): Locator {
     return this.page.getByRole("tooltip").filter({hasText:text})
+  }
+
+  async initWithEmptyData() {
+    const message: AppMessage = {
+      key: "Project",
+      payload: {
+        Name: "Test Project",
+        FilePath: "SomeFilePath.mfproj",
+        ConfigFiles: [],
+        Sim: "msfs",
+        Features: {
+            "FSUIPC": false,
+            "ProSim": false
+        },
+        ControllerBindings: [],
+      } as Project,
+    }
+    await this.publishMessage(message)
+  }
+
+  async initWithTestData() {
+    const message: AppMessage = {
+      key: "Project",
+      payload: testProject,
+    }
+    await this.publishMessage(message)
+    await this.initWithRecentProjects()
+  }
+
+  async initWithTestDataAndSpecificProfileCount(profileCount: number) {
+    const profiles = testProject.ConfigFiles.slice(0, profileCount)
+    const testProjectWithProfiles = {
+      ...testProject,
+      ConfigFiles: profiles,
+    }
+
+    const message: AppMessage = {
+      key: "Project",
+      payload: testProjectWithProfiles,
+    }
+    await this.publishMessage(message)
+    await this.initWithRecentProjects()
+  }
+
+  async initWithRecentProjects() {
+    const recentProjectsMessage: AppMessage = {
+      key: "RecentProjects",
+      payload: {
+        Projects: recentProjects as ProjectInfo[],
+      },
+    }
+    await this.publishMessage(recentProjectsMessage)
+  }
+
+  getRecentProjects(): ProjectInfo[] {
+    return recentProjects as ProjectInfo[]
+  }
+
+  async initWithTestDataAndSpecificProjectProps(props: Partial<Project>) {
+    const testProjectWithProps = {
+      ...testProject,
+      ...props,
+    }
+
+    const message: AppMessage = {
+      key: "Project",
+      payload: testProjectWithProps,
+    }
+    await this.publishMessage(message)
+    await this.initWithRecentProjects()
   }
 }
