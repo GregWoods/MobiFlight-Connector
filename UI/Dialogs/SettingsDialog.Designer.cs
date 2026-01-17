@@ -72,12 +72,14 @@
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.bleTabPage = new System.Windows.Forms.TabPage();
             this.panel1.SuspendLayout();
             this.ArcazeTabPage.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.mobiFlightTabPage.SuspendLayout();
+            this.bleTabPage.SuspendLayout();
             this.peripheralsTabPage.SuspendLayout();
             this.ProSimTab.SuspendLayout();
             this.SuspendLayout();
@@ -275,6 +277,7 @@
             // 
             this.tabControl1.Controls.Add(this.generalTabPage);
             this.tabControl1.Controls.Add(this.mobiFlightTabPage);
+            this.tabControl1.Controls.Add(this.bleTabPage);
             this.tabControl1.Controls.Add(this.peripheralsTabPage);
             this.tabControl1.Controls.Add(this.ArcazeTabPage);
             this.tabControl1.Controls.Add(this.ProSimTab);
@@ -293,6 +296,12 @@
             // 
             resources.ApplyResources(this.mobiFlightPanel, "mobiFlightPanel");
             this.mobiFlightPanel.Name = "mobiFlightPanel";
+            // 
+            // bleTabPage
+            // 
+            resources.ApplyResources(this.bleTabPage, "bleTabPage");
+            this.bleTabPage.Name = "bleTabPage";
+            this.bleTabPage.UseVisualStyleBackColor = true;
             // 
             // peripheralsTabPage
             // 
@@ -355,6 +364,7 @@
             this.generalTabPage.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.mobiFlightTabPage.ResumeLayout(false);
+            this.bleTabPage.ResumeLayout(false);
             this.peripheralsTabPage.ResumeLayout(false);
             this.ProSimTab.ResumeLayout(false);
             this.ProSimTab.PerformLayout();
@@ -407,5 +417,6 @@
         private Panels.Settings.PeripheralsPanel peripheralsPanel;
         private System.Windows.Forms.TabPage ProSimTab;
         private Panels.Settings.ProSimPanel proSimPanel;
+        private System.Windows.Forms.TabPage bleTabPage;
     }
 }
