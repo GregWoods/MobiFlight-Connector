@@ -1,4 +1,4 @@
-﻿################################################################################
+################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
@@ -490,3 +490,4 @@ FodyWeavers.xsd
 # Python directory - include only RuntimeAndPackages*.zip files
 Python/*
 !Python/RuntimeAndPackages*.zip
+.claude/settings.local.json
