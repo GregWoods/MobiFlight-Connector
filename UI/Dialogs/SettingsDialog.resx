@@ -259,7 +259,7 @@
     <value>tabControl1</value>
   </data>
   <data name="&gt;&gt;ArcazeTabPage.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <metadata name="mfTreeViewImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>696, 17</value>
@@ -501,6 +501,30 @@
   <data name="&gt;&gt;mobiFlightTabPage.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="bleTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="bleTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>563, 585</value>
+  </data>
+  <data name="bleTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="bleTabPage.Text" xml:space="preserve">
+    <value>BLE Modules</value>
+  </data>
+  <data name="&gt;&gt;bleTabPage.Name" xml:space="preserve">
+    <value>bleTabPage</value>
+  </data>
+  <data name="&gt;&gt;bleTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bleTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;bleTabPage.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="peripheralsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -553,7 +577,7 @@
     <value>tabControl1</value>
   </data>
   <data name="&gt;&gt;peripheralsTabPage.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="proSimPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -565,7 +589,7 @@
     <value>2, 3</value>
   </data>
   <data name="proSimPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>558, 82</value>
+    <value>558, 127</value>
   </data>
   <data name="proSimPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -604,7 +628,7 @@
     <value>tabControl1</value>
   </data>
   <data name="&gt;&gt;ProSimTab.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
