@@ -1,0 +1,42 @@
+{
+  "Name": "SampleSimionicConfig",
+  "ConfigFiles": [
+    {
+      "Label": "New file",
+      "FileName": null,
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "button": {
+            "onPress": {
+              "Type": "MSFS2020CustomInputAction",
+              "Command": "1 (>B:AS1000_NAV_ID_PUSH_PFD_Set)",
+              "PresetId": "-"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "DeviceType": "BleSimionic.Button",
+          "DeviceName": "NAV VOL Push",
+          "GUID": "???",
+          "Active": true,
+          "Name": "*PFD* NAV Volume PUSH",
+          "Type": "InputConfigItem",
+          "ModuleSerial": "BLESimionic / [88:6b:0f:a4:dd:d5]"
+        }
+      ]
+    }
+  ],
+  "Sim": "msfs",
+  "Aircraft": [],
+  "Features": {
+    "FSUIPC": false,
+    "ProSim": false
+  },
+  "_version": "0.9"
+}
