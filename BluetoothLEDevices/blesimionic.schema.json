@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://mobiflight.com/blesimionic.schema.json",
+  "title": "Simionic BLE Device",
+  "description": "Schema for Simionic G1000 Bluetooth LE device configuration",
+  "type": "object",
+  "required": ["Name", "ServiceUUID", "CharacteristicUUID"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Reference to the JSON schema file"
+    },
+    "Name": {
+      "type": "string",
+      "description": "Display name for the device"
+    },
+    "ServiceUUID": {
+      "type": "string",
+      "description": "Bluetooth LE service UUID"
+    },
+    "CharacteristicUUID": {
+      "type": "string",
+      "description": "Bluetooth LE characteristic UUID"
+    },
+    "Inputs": {
+      "type": "array",
+      "description": "List of input controls (buttons and encoders)",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "description": "Button input",
+            "required": ["Type", "Label"],
+            "anyOf": [
+              { "required": ["Press"] },
+              { "required": ["Release"] }
+            ],
+            "properties": {
+              "Type": {
+                "type": "string",
+                "const": "Button"
+              },
+              "Press": {
+                "type": "string",
+                "pattern": "^[0-9A-Fa-f]{2}$",
+                "description": "Hex code sent when button is pressed"
+              },
+              "Release": {
+                "type": "string",
+                "pattern": "^[0-9A-Fa-f]{2}$",
+                "description": "Hex code sent when button is released"
+              },
+              "Label": {
+                "type": "string",
+                "description": "Display label for the button"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "description": "Encoder input",
+            "required": ["Type", "Decrement", "Increment", "Label"],
+            "properties": {
+              "Type": {
+                "type": "string",
+                "const": "Encoder"
+              },
+              "Decrement": {
+                "type": "string",
+                "pattern": "^[0-9A-Fa-f]{2}$",
+                "description": "Hex code sent when encoder is turned counter-clockwise"
+              },
+              "Increment": {
+                "type": "string",
+                "pattern": "^[0-9A-Fa-f]{2}$",
+                "description": "Hex code sent when encoder is turned clockwise"
+              },
+              "Label": {
+                "type": "string",
+                "description": "Display label for the encoder"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "Outputs": {
+      "type": "array",
+      "description": "List of output controls (to be confirmed)",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "additionalProperties": false
+}

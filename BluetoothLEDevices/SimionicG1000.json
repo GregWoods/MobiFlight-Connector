@@ -1,0 +1,513 @@
+{
+  "$schema": "./blesimionic.schema.json",
+  "Name": "Simionic G1000 with Audio Panel",
+  "ServiceUUID": "c8ad063d-cc77-4d98-997f-dc796450b209",
+  "CharacteristicUUID": "f62a9f56-f29e-48a8-a317-47ee37a58999",
+  "Inputs": [
+    {
+      "Type": "Button",
+      "Press": "4E",
+      "Release": "4F",
+      "Label": "NAV VOL Push"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "4D",
+      "Increment": "4C",
+      "Label": "NAV VOL"
+    },
+    {
+      "Type": "Button",
+      "Press": "4A",
+      "Release": "4B",
+      "Label": "NAV Flip Flop"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "53",
+      "Increment": "52",
+      "Label": "NAV OUTER"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "51",
+      "Increment": "50",
+      "Label": "NAV INNER"
+    },
+    {
+      "Type": "Button",
+      "Press": "54",
+      "Release": "55",
+      "Label": "NAV Push"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "45",
+      "Increment": "44",
+      "Label": "HDG"
+    },
+    {
+      "Type": "Button",
+      "Press": "56",
+      "Release": "57",
+      "Label": "HDG Push"
+    },
+    {
+      "Type": "Button",
+      "Press": "5C",
+      "Release": "5D",
+      "Label": "AP Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "40",
+      "Release": "41",
+      "Label": "FD Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "64",
+      "Release": "65",
+      "Label": "HDG Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "42",
+      "Release": "43",
+      "Label": "ALT Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "62",
+      "Release": "63",
+      "Label": "NAV Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "3C",
+      "Release": "3D",
+      "Label": "VNV"
+    },
+    {
+      "Type": "Button",
+      "Press": "60",
+      "Release": "61",
+      "Label": "APR"
+    },
+    {
+      "Type": "Button",
+      "Press": "3A",
+      "Release": "3B",
+      "Label": "BC Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "5E",
+      "Release": "5F",
+      "Label": "VS Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "38",
+      "Release": "39",
+      "Label": "Nose Up"
+    },
+    {
+      "Type": "Button",
+      "Press": "5A",
+      "Release": "5B",
+      "Label": "FLC Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "3E",
+      "Release": "3F",
+      "Label": "Nose Down"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "49",
+      "Increment": "48",
+      "Label": "ALT OUTER"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "47",
+      "Increment": "46",
+      "Label": "ALT INNER"
+    },
+    {
+      "Type": "Button",
+      "Press": "58",
+      "Release": "59",
+      "Label": "ALT Push"
+    },
+    {
+      "Type": "Button",
+      "Press": "9C",
+      "Release": "9D",
+      "Label": "Softkey 1"
+    },
+    {
+      "Type": "Button",
+      "Press": "9E",
+      "Release": "9F",
+      "Label": "Softkey 2"
+    },
+    {
+      "Type": "Button",
+      "Press": "A0",
+      "Release": "A1",
+      "Label": "Softkey 3"
+    },
+    {
+      "Type": "Button",
+      "Press": "A2",
+      "Release": "A3",
+      "Label": "Softkey 4"
+    },
+    {
+      "Type": "Button",
+      "Press": "A4",
+      "Release": "A5",
+      "Label": "Softkey 5"
+    },
+    {
+      "Type": "Button",
+      "Press": "A6",
+      "Release": "A7",
+      "Label": "Softkey 6"
+    },
+    {
+      "Type": "Button",
+      "Press": "A8",
+      "Release": "A9",
+      "Label": "Softkey 7"
+    },
+    {
+      "Type": "Button",
+      "Press": "AA",
+      "Release": "AB",
+      "Label": "Softkey 8"
+    },
+    {
+      "Type": "Button",
+      "Press": "AC",
+      "Release": "AD",
+      "Label": "Softkey 9"
+    },
+    {
+      "Type": "Button",
+      "Press": "AE",
+      "Release": "AF",
+      "Label": "Softkey 10"
+    },
+    {
+      "Type": "Button",
+      "Press": "B0",
+      "Release": "B1",
+      "Label": "Softkey 11"
+    },
+    {
+      "Type": "Button",
+      "Press": "B2",
+      "Release": "B3",
+      "Label": "Softkey 12"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "25",
+      "Increment": "24",
+      "Label": "COM VOL"
+    },
+    {
+      "Type": "Button",
+      "Press": "CE",
+      "Release": "CF",
+      "Label": "COM VOL Push"
+    },
+    {
+      "Type": "Button",
+      "Press": "CA",
+      "Release": "CB",
+      "Label": "COM Flip Flop Btn"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "6D",
+      "Increment": "6C",
+      "Label": "COM OUTER"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "6B",
+      "Increment": "6A",
+      "Label": "COM INNER"
+    },
+    {
+      "Type": "Button",
+      "Press": "6E",
+      "Release": "6F",
+      "Label": "COM Push"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "67",
+      "Increment": "66",
+      "Label": "Baro"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "69",
+      "Increment": "68",
+      "Label": "CRS"
+    },
+    {
+      "Type": "Button",
+      "Press": "70",
+      "Release": "71",
+      "Label": "CRS Push"
+    },
+    {
+      "Type": "Button",
+      "Press": "C6",
+      "Release": "C7",
+      "Label": "PAN Up"
+    },
+    {
+      "Type": "Button",
+      "Press": "C8",
+      "Release": "C9",
+      "Label": "PAN Down"
+    },
+    {
+      "Type": "Button",
+      "Press": "C2",
+      "Release": "C3",
+      "Label": "PAN Left"
+    },
+    {
+      "Type": "Button",
+      "Press": "C4",
+      "Release": "C5",
+      "Label": "PAN Right"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "C1",
+      "Increment": "C0",
+      "Label": "Range"
+    },
+    {
+      "Type": "Button",
+      "Press": "20",
+      "Release": "21",
+      "Label": "Range Push"
+    },
+    {
+      "Type": "Button",
+      "Press": "D2",
+      "Release": "D3",
+      "Label": "Direct To Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "B8",
+      "Release": "B9",
+      "Label": "MENU Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "D4",
+      "Release": "D5",
+      "Label": "FPL Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "B6",
+      "Release": "B7",
+      "Label": "PROC Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "D6",
+      "Release": "D7",
+      "Label": "CLR Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "B4",
+      "Release": "B5",
+      "Label": "ENT Btn"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "29",
+      "Increment": "28",
+      "Label": "FMS OUTER"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "27",
+      "Increment": "26",
+      "Label": "FMS INNER"
+    },
+    {
+      "Type": "Button",
+      "Press": "BE",
+      "Release": "BF",
+      "Label": "FMS Push"
+    },
+    {
+      "Type": "Button",
+      "Press": "2A",
+      "Release": "2B",
+      "Label": "COM1 Mic Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "32",
+      "Release": "33",
+      "Label": "COM1 Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "2C",
+      "Release": "2D",
+      "Label": "COM2 Mic Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "34",
+      "Release": "35",
+      "Label": "COM2 Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "2E",
+      "Release": "2F",
+      "Label": "COM3 Mic Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "36",
+      "Release": "37",
+      "Label": "COM3 Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "30",
+      "Release": "31",
+      "Label": "COM 1/2 Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "72",
+      "Release": "73",
+      "Label": "TEL Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "74",
+      "Release": "75",
+      "Label": "PA Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "76",
+      "Release": "77",
+      "Label": "SPKR Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "78",
+      "Release": "79",
+      "Label": "MKR MUTE Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "7A",
+      "Release": "7B",
+      "Label": "HI SENS Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "7C",
+      "Release": "7D",
+      "Label": "DME Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "82",
+      "Release": "83",
+      "Label": "NAV1 Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "7E",
+      "Release": "7F",
+      "Label": "ADF Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "84",
+      "Release": "85",
+      "Label": "NAV2 Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "80",
+      "Release": "81",
+      "Label": "AUX Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "86",
+      "Release": "87",
+      "Label": "MAN SQ Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "88",
+      "Release": "89",
+      "Label": "PLAY Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "8A",
+      "Release": "8B",
+      "Label": "PILOT Btn"
+    },
+    {
+      "Type": "Button",
+      "Press": "8C",
+      "Release": "8D",
+      "Label": "COPLT Btn"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "93",
+      "Increment": "92",
+      "Label": "PILOT VOL"
+    },
+    {
+      "Type": "Encoder",
+      "Decrement": "95",
+      "Increment": "94",
+      "Label": "COPLT VOL"
+    },
+    {
+      "Type": "Button",
+      "Press": "90",
+      "Release": "91",
+      "Label": "PLT/COPLT Push"
+    },
+    {
+      "Type": "Button",
+      "Press": "8E",
+      "Release": "8F",
+      "Label": "DISPLAY BACKUP"
+    }
+  ],
+  "Outputs": []
+}
