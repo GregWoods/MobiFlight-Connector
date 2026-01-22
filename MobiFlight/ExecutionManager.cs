@@ -1,4 +1,5 @@
 using MobiFlight.Base;
+using MobiFlight.BLE;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages.Outgoing;
@@ -25,6 +26,7 @@ namespace MobiFlight
         MobiFlightCache getMobiFlightModuleCache();
         ProSim.ProSimCacheInterface GetProSimCache();
         MidiBoardManager GetMidiBoardManager();
+        BleDeviceManager GetBleDeviceManager();
         // Add other methods and properties as needed
     }
     public class ExecutionManager : IExecutionManager
@@ -52,6 +54,7 @@ namespace MobiFlight
         public event EventHandler OnInitialModuleLookupFinished;
         public event EventHandler OnJoystickConnectedFinished;
         public event EventHandler OnMidiBoardConnectedFinished;
+        public event EventHandler OnBleDeviceConnectedFinished;
 
         public event EventHandler SettingsDialogRequested;
         public event EventHandler<Project> OnProjectChanged;
@@ -97,6 +100,7 @@ namespace MobiFlight
 #endif
         readonly JoystickManager joystickManager = new JoystickManager();
         readonly MidiBoardManager midiBoardManager = new MidiBoardManager();
+        readonly BleDeviceManager bleDeviceManager = new BleDeviceManager();
         private readonly Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
@@ -233,6 +237,15 @@ namespace MobiFlight
                 OnMidiBoardConnectedFinished?.Invoke(sender, e);
             };
 
+            OnBleDeviceConnectedFinished += (s, e) => { PublishConnectedDevices(); };
+
+            bleDeviceManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+            bleDeviceManager.Connected += (sender, e) =>
+            {
+                bleDeviceManager.Startup();
+                OnBleDeviceConnectedFinished?.Invoke(sender, e);
+            };
+
             OnProjectChanged += (s, p) =>
             {
                 ActiveConfigIndex = 0;
@@ -281,6 +294,16 @@ namespace MobiFlight
                 });
             });
 
+            bleDeviceManager.GetDevices().ToList().ForEach(controller =>
+            {
+                connectedControllers.Add(new Controller()
+                {
+                    Name = controller.Name,
+                    Connected = true,
+                    Serial = controller.Serial
+                });
+            });
+
             MessageExchange.Instance.Publish(new ConnectedControllers() { Controllers = connectedControllers });
         }
 
@@ -318,6 +341,14 @@ namespace MobiFlight
             if (Properties.Settings.Default.EnableMidiSupport)
             {
                 midiBoardManager.Connect();
+            }
+        }
+
+        public void StartBleDeviceManager()
+        {
+            if (Properties.Settings.Default.EnableBleSupport)
+            {
+                bleDeviceManager.Connect();
             }
         }
 
@@ -819,6 +850,11 @@ namespace MobiFlight
         public MidiBoardManager GetMidiBoardManager()
         {
             return midiBoardManager;
+        }
+
+        public BleDeviceManager GetBleDeviceManager()
+        {
+            return bleDeviceManager;
         }
 
         public List<IModuleInfo> GetAllConnectedModulesInfo()

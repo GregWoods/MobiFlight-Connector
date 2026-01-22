@@ -132,6 +132,9 @@
       <HintPath>packages\HidSharp.2.6.4\lib\net35\HidSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="InTheHand.BluetoothLE, Version=4.0.0.0, Culture=neutral, PublicKeyToken=ea38caa273134499, processorArchitecture=MSIL">
+      <HintPath>packages\InTheHand.BluetoothLE.4.0.44\lib\netstandard2.0\InTheHand.BluetoothLE.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
       <Private>True</Private>
@@ -325,6 +328,9 @@
     <Compile Include="HubHop\HubHopState.cs" />
     <Compile Include="HubHop\HubHopType.cs" />
     <Compile Include="HubHop\Msfs2020EventIdPresetList.cs" />
+    <Compile Include="MobiFlight\BLE\BleDevice.cs" />
+    <Compile Include="MobiFlight\BLE\BleDeviceDefinition.cs" />
+    <Compile Include="MobiFlight\BLE\BleDeviceManager.cs" />
     <Compile Include="MobiFlight\Board.cs" />
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\BrowserMessages\IMessageExchange.cs" />
@@ -1199,6 +1205,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="ApplicationInsights.config" />
+    <None Include="BluetoothLEDevices\blesimionic.schema.json" />
+    <None Include="BluetoothLEDevices\SimionicG1000.json" />
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

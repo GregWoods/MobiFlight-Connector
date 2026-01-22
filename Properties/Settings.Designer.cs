@@ -527,7 +527,31 @@ namespace MobiFlight.Properties {
                 this["EnableJoystickSupport"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableBleSupport {
+            get {
+                return ((bool)(this["EnableBleSupport"]));
+            }
+            set {
+                this["EnableBleSupport"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("[]")]
+        public string ExcludedBleDevices {
+            get {
+                return ((string)(this["ExcludedBleDevices"]));
+            }
+            set {
+                this["ExcludedBleDevices"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("[]")]
