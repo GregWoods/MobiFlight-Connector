@@ -1,4 +1,4 @@
-using InTheHand.Bluetooth;
+using MobiFlight.Base;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,6 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.Devices.Bluetooth;
+using Windows.Devices.Bluetooth.Advertisement;
+using Windows.Foundation;
 
 namespace MobiFlight.BLE
 {
@@ -60,29 +63,13 @@ namespace MobiFlight.BLE
             if (!File.Exists(schemaFilePath))
             {
                 Log.Instance.log($"[BLE] Schema file not found: {schemaFilePath}", LogSeverity.Warn);
-                // Load without schema validation
-                foreach (var file in jsonFiles)
-                {
-                    try
-                    {
-                        var definition = JsonConvert.DeserializeObject<BleDeviceDefinition>(File.ReadAllText(file));
-                        definition.Migrate();
-                        Definitions.Add(definition.Name, definition);
-                        Log.Instance.log($"[BLE] Loaded device definition: {definition.Name}", LogSeverity.Debug);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Instance.log($"[BLE] Failed to load {file}: {ex.Message}", LogSeverity.Error);
-                        LoadingError = true;
-                    }
-                }
                 return;
             }
 
             var rawDefinitions = JsonBackedObject.LoadDefinitions<BleDeviceDefinition>(
                 jsonFiles,
                 schemaFilePath,
-                onSuccess: (device, definitionFile) => Log.Instance.log($"[BLE] Loaded device definition: {device.Name}", LogSeverity.Debug),
+                onSuccess: (device, definitionFile) => Log.Instance.log($"[BLE] Loaded device definition: {device.Name}", LogSeverity.Info),
                 onError: () => LoadingError = true
             );
 
@@ -149,23 +136,77 @@ namespace MobiFlight.BLE
         }
 
         /// <summary>
-        /// Synchronous wrapper for ConnectAsync - matches pattern used by JoystickManager/MidiBoardManager.
+        /// Placeholder for Connect - actual connection is done via ConnectFromConfigItemsAsync
+        /// which is called by ExecutionManager when a project is loaded.
         /// </summary>
         public void Connect()
         {
-            // Fire-and-forget async connection
-            // The Connected event will fire when complete
-            Task.Run(async () =>
-            {
-                await ConnectAsync();
-                Connected?.Invoke(this, EventArgs.Empty);
-            });
+            // Connection is now handled by ConnectFromConfigItemsAsync which is called
+            // from ExecutionManager.ConnectBleDevicesFromConfig() when the user clicks Play.
+            // This method is kept for API compatibility but does nothing on its own.
+            Log.Instance.log("[BLE] Connect() called - use ConnectFromConfigItemsAsync for actual connection", LogSeverity.Debug);
         }
 
         /// <summary>
-        /// Scans for available BLE devices and connects to known devices.
+        /// Connects to all BLE devices referenced in the given config items.
+        /// Scans for devices and connects to those matching the target addresses.
         /// </summary>
-        public async Task ConnectAsync()
+        /// <param name="configItems">Config items that may reference BLE devices</param>
+        public async Task ConnectFromConfigItemsAsync(IEnumerable<IConfigItem> configItems)
+        {
+            if (configItems == null) return;
+
+            // Extract unique BLE device references
+            var bleReferences = configItems
+                .Where(item => item != null && BleDevice.IsBleSerial(item.ModuleSerial))
+                .Select(item => new
+                {
+                    Address = BleDevice.ExtractAddressFromSerial(item.ModuleSerial)?.ToLowerInvariant(),
+                    DefinitionName = ExtractDefinitionNameFromSerial(item.ModuleSerial)
+                })
+                .Where(x => !string.IsNullOrEmpty(x.Address) && !string.IsNullOrEmpty(x.DefinitionName))
+                .GroupBy(x => x.Address)
+                .Select(g => g.First())
+                .ToList();
+
+            if (bleReferences.Count == 0)
+            {
+                Log.Instance.log("[BLE] No BLE device references found in config items", LogSeverity.Debug);
+                return;
+            }
+
+            Log.Instance.log($"[BLE] Found {bleReferences.Count} unique BLE device(s) in config", LogSeverity.Info);
+
+            // Build a lookup of addresses we're looking for
+            var targetAddresses = bleReferences.ToDictionary(
+                r => NormalizeAddress(r.Address),
+                r => r.DefinitionName);
+
+            Log.Instance.log($"[BLE] Target addresses: {string.Join(", ", targetAddresses.Keys)}", LogSeverity.Debug);
+
+            // Scan for devices matching our service UUIDs
+            await ScanAndConnectToTargetDevices(targetAddresses);
+
+            if (AreBleDevicesConnected())
+            {
+                Connected?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
+        /// Normalizes a MAC address to lowercase without separators for comparison.
+        /// </summary>
+        private string NormalizeAddress(string address)
+        {
+            if (string.IsNullOrEmpty(address)) return "";
+            return address.Replace(":", "").Replace("-", "").Replace("[", "").Replace("]", "").ToLowerInvariant();
+        }
+
+        /// <summary>
+        /// Scans for BLE devices using Windows Runtime BluetoothLEAdvertisementWatcher
+        /// and connects to those matching target addresses.
+        /// </summary>
+        private async Task ScanAndConnectToTargetDevices(Dictionary<string, string> targetAddresses)
         {
             if (_isScanning)
             {
@@ -174,28 +215,81 @@ namespace MobiFlight.BLE
             }
 
             _isScanning = true;
-            Log.Instance.log("[BLE] Starting device scan...", LogSeverity.Info);
+            var foundAddresses = new HashSet<string>();
+            var scanCompletionSource = new TaskCompletionSource<bool>();
+            BluetoothLEAdvertisementWatcher watcher = null;
 
             try
             {
-                // Get excluded devices from settings
-                List<string> excludedAddresses = new List<string>();
-                try
-                {
-                    excludedAddresses = JsonConvert.DeserializeObject<List<string>>(
-                        Properties.Settings.Default.ExcludedBleDevices ?? "[]") ?? new List<string>();
-                }
-                catch { /* Use empty list if settings not available */ }
+                Log.Instance.log("[BLE] Starting Windows Runtime advertisement scan...", LogSeverity.Info);
 
-                // Scan for devices that match our known service UUIDs
-                foreach (var definition in Definitions.Values)
+                // Create Windows Runtime advertisement watcher
+                watcher = new BluetoothLEAdvertisementWatcher
                 {
-                    await ScanAndConnectForDefinition(definition, excludedAddresses);
-                }
+                    ScanningMode = BluetoothLEScanningMode.Active
+                };
 
-                if (AreBleDevicesConnected())
+                // Subscribe to advertisement events
+                watcher.Received += async (w, args) =>
                 {
-                    Connected?.Invoke(this, null);
+                    try
+                    {
+                        // Convert BluetoothAddress (ulong) to normalized hex string
+                        var deviceAddress = args.BluetoothAddress.ToString("x12");
+                        var formattedAddress = FormatMacAddress(deviceAddress);
+
+                        // Avoid processing the same device multiple times
+                        if (foundAddresses.Contains(deviceAddress))
+                            return;
+
+                        var deviceName = args.Advertisement.LocalName ?? "Unknown";
+                        Log.Instance.log($"[BLE] Advertisement from: {deviceName} at {formattedAddress} (normalized: {deviceAddress})", LogSeverity.Debug);
+
+                        // Check if this device matches one of our targets
+                        if (targetAddresses.TryGetValue(deviceAddress, out var definitionName))
+                        {
+                            foundAddresses.Add(deviceAddress);
+                            Log.Instance.log($"[BLE] Device {formattedAddress} matches target address, connecting...", LogSeverity.Info);
+
+                            if (Definitions.TryGetValue(definitionName, out var matchedDefinition))
+                            {
+                                // Connect using the BluetoothAddress
+                                await ConnectDeviceByBluetoothAddress(args.BluetoothAddress, matchedDefinition);
+                            }
+
+                            // If we've found all target devices, we can stop
+                            if (foundAddresses.Count >= targetAddresses.Count)
+                            {
+                                scanCompletionSource.TrySetResult(true);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"[BLE] Error processing advertisement: {ex.Message}", LogSeverity.Error);
+                    }
+                };
+
+                watcher.Stopped += (w, args) =>
+                {
+                    Log.Instance.log($"[BLE] Watcher stopped: {args.Error}", LogSeverity.Debug);
+                };
+
+                // Start scanning
+                watcher.Start();
+                Log.Instance.log("[BLE] Advertisement watcher started", LogSeverity.Debug);
+
+                // Wait for scan to complete or timeout
+                var timeoutTask = Task.Delay(TimeSpan.FromSeconds(15));
+                var completedTask = await Task.WhenAny(scanCompletionSource.Task, timeoutTask);
+
+                if (completedTask == timeoutTask)
+                {
+                    Log.Instance.log($"[BLE] Scan timed out. Found {foundAddresses.Count} of {targetAddresses.Count} target device(s)", LogSeverity.Info);
+                }
+                else
+                {
+                    Log.Instance.log($"[BLE] Scan complete. Found all {targetAddresses.Count} target device(s)", LogSeverity.Info);
                 }
             }
             catch (Exception ex)
@@ -204,100 +298,122 @@ namespace MobiFlight.BLE
             }
             finally
             {
+                // Stop the watcher
+                if (watcher != null)
+                {
+                    watcher.Stop();
+                    Log.Instance.log("[BLE] Advertisement watcher stopped", LogSeverity.Debug);
+                }
                 _isScanning = false;
             }
         }
 
         /// <summary>
-        /// Scans for and connects to devices matching a specific definition.
+        /// Formats a normalized MAC address (12 hex chars) to colon-separated format.
         /// </summary>
-        private async Task ScanAndConnectForDefinition(BleDeviceDefinition definition, List<string> excludedAddresses)
+        private string FormatMacAddress(string normalizedAddress)
         {
-            try
-            {
-                var serviceUuid = ParseUuid(definition.ServiceUUID);
+            if (string.IsNullOrEmpty(normalizedAddress) || normalizedAddress.Length != 12)
+                return normalizedAddress;
 
-                // Request device with the specific service UUID
-                var requestOptions = new RequestDeviceOptions
-                {
-                    AcceptAllDevices = false,
-                    Filters = { new BluetoothLEScanFilter { Services = { serviceUuid } } }
-                };
-
-                Log.Instance.log($"[BLE] Scanning for {definition.Name} (Service: {definition.ServiceUUID})...", LogSeverity.Debug);
-
-                // Note: RequestDeviceAsync may show a system picker dialog
-                // For background scanning without UI, you may need to use different approach
-                var bluetoothDevice = await Bluetooth.RequestDeviceAsync(requestOptions);
-
-                if (bluetoothDevice == null)
-                {
-                    Log.Instance.log($"[BLE] No device found for {definition.Name}", LogSeverity.Debug);
-                    return;
-                }
-
-                // Check exclusion list
-                if (excludedAddresses.Contains(bluetoothDevice.Id))
-                {
-                    Log.Instance.log($"[BLE] Device {bluetoothDevice.Id} is excluded", LogSeverity.Info);
-                    return;
-                }
-
-                // Check if already connected
-                if (Devices.Any(d => d.Address == bluetoothDevice.Id))
-                {
-                    Log.Instance.log($"[BLE] Device {bluetoothDevice.Id} already connected", LogSeverity.Debug);
-                    return;
-                }
-
-                await ConnectDevice(bluetoothDevice, definition);
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"[BLE] Error scanning for {definition.Name}: {ex.Message}", LogSeverity.Error);
-            }
+            return string.Join(":", Enumerable.Range(0, 6).Select(i => normalizedAddress.Substring(i * 2, 2)));
         }
 
         /// <summary>
-        /// Connects to a specific BLE device by address.
+        /// Connects to a BLE device using its Bluetooth address (ulong).
         /// </summary>
-        public Task ConnectDeviceByAddressAsync(string address, string definitionName)
+        private Task ConnectDeviceByBluetoothAddress(ulong bluetoothAddress, BleDeviceDefinition definition)
         {
-            if (!Definitions.TryGetValue(definitionName, out var definition))
-            {
-                Log.Instance.log($"[BLE] Unknown device definition: {definitionName}", LogSeverity.Error);
-                return Task.CompletedTask;
-            }
+            var tcs = new TaskCompletionSource<bool>();
 
-            // For direct connection by address, we need to use a different approach
-            // This is a simplified version - actual implementation may vary by platform
-            Log.Instance.log($"[BLE] Attempting direct connection to {address}...", LogSeverity.Info);
-
-            // Note: Direct connection by address requires different API calls
-            // depending on the InTheHand.BluetoothLE version and platform
-            // This may need platform-specific implementation
-
-            Log.Instance.log($"[BLE] Direct connection by address not yet implemented. Use ConnectAsync() for device picker.", LogSeverity.Warn);
-            return Task.CompletedTask;
-        }
-
-        private async Task ConnectDevice(BluetoothDevice bluetoothDevice, BleDeviceDefinition definition)
-        {
             try
             {
-                var device = new BleDevice(bluetoothDevice, definition);
-                device.OnButtonPressed += Device_OnButtonPressed;
-                device.OnDisconnected += Device_OnDisconnected;
+                Log.Instance.log($"[BLE] Connecting to device at address {bluetoothAddress:X12}...", LogSeverity.Info);
 
-                await device.ConnectAsync();
+                // Use Windows Runtime API to get the device
+                var operation = BluetoothLEDevice.FromBluetoothAddressAsync(bluetoothAddress);
+                operation.Completed = async (asyncInfo, asyncStatus) =>
+                {
+                    try
+                    {
+                        if (asyncStatus != Windows.Foundation.AsyncStatus.Completed)
+                        {
+                            Log.Instance.log($"[BLE] Failed to get device: {asyncStatus}", LogSeverity.Error);
+                            tcs.SetResult(false);
+                            return;
+                        }
 
-                Devices.Add(device);
-                Log.Instance.log($"[BLE] Added device: {device.Name} ({device.Address})", LogSeverity.Info);
+                        var bleDevice = asyncInfo.GetResults();
+                        if (bleDevice == null)
+                        {
+                            Log.Instance.log($"[BLE] Failed to get BluetoothLEDevice from address {bluetoothAddress:X12}", LogSeverity.Error);
+                            tcs.SetResult(false);
+                            return;
+                        }
+
+                        Log.Instance.log($"[BLE] Got BluetoothLEDevice: {bleDevice.Name}", LogSeverity.Debug);
+
+                        // Create our BleDevice wrapper
+                        var device = new BleDevice(bleDevice, definition);
+                        device.OnButtonPressed += Device_OnButtonPressed;
+                        device.OnDisconnected += Device_OnDisconnected;
+
+                        await device.ConnectAsync();
+
+                        Devices.Add(device);
+                        Log.Instance.log($"[BLE] Added device: {device.Name} ({device.Address})", LogSeverity.Info);
+                        tcs.SetResult(true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"[BLE] Failed to connect to device: {ex.Message}", LogSeverity.Error);
+                        tcs.SetResult(false);
+                    }
+                };
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"[BLE] Failed to connect device: {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"[BLE] Failed to connect to device: {ex.Message}", LogSeverity.Error);
+                tcs.SetResult(false);
             }
+
+            return tcs.Task;
+        }
+
+        /// <summary>
+        /// Extracts the definition name from a ModuleSerial string.
+        /// Handles formats like "SimionicG1000 / BLE-[address]" or "BLESimionic / [address]"
+        /// </summary>
+        private string ExtractDefinitionNameFromSerial(string moduleSerial)
+        {
+            if (string.IsNullOrEmpty(moduleSerial)) return null;
+
+            // Extract the device name part (before "/ ")
+            var deviceName = Base.SerialNumber.ExtractDeviceName(moduleSerial);
+
+            // Handle legacy "BLESimionic" format
+            if (deviceName.Equals("BLESimionic", StringComparison.OrdinalIgnoreCase))
+            {
+                // Try to find a matching definition
+                var simionicDef = Definitions.Values.FirstOrDefault(d =>
+                    d.Name.IndexOf("Simionic", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    d.Name.IndexOf("G1000", StringComparison.OrdinalIgnoreCase) >= 0);
+                return simionicDef?.Name;
+            }
+
+            // Try to find an exact match
+            if (Definitions.ContainsKey(deviceName))
+            {
+                return deviceName;
+            }
+
+            // Try to find a partial match
+            var matchingDef = Definitions.Values.FirstOrDefault(d =>
+                d.Name.Equals(deviceName, StringComparison.OrdinalIgnoreCase) ||
+                d.Name.IndexOf(deviceName, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                deviceName.IndexOf(d.Name, StringComparison.OrdinalIgnoreCase) >= 0);
+
+            return matchingDef?.Name;
         }
 
         private void Device_OnButtonPressed(object sender, InputEventArgs e)
@@ -365,7 +481,7 @@ namespace MobiFlight.BLE
         /// <summary>
         /// Parses a UUID string (handles both short 16-bit and full 128-bit formats).
         /// </summary>
-        private static BluetoothUuid ParseUuid(string uuid)
+        private static Guid ParseUuid(string uuid)
         {
             // Handle short UUIDs like "0x044F" or "044F"
             if (uuid.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
@@ -376,12 +492,13 @@ namespace MobiFlight.BLE
             if (uuid.Length <= 8)
             {
                 // Convert short UUID to full Bluetooth Base UUID
-                var shortUuid = ushort.Parse(uuid, System.Globalization.NumberStyles.HexNumber);
-                return BluetoothUuid.FromShortId(shortUuid);
+                // Base UUID: 00000000-0000-1000-8000-00805F9B34FB
+                var shortUuid = uint.Parse(uuid, System.Globalization.NumberStyles.HexNumber);
+                return new Guid($"{shortUuid:X8}-0000-1000-8000-00805F9B34FB");
             }
 
             // Full UUID
-            return BluetoothUuid.FromGuid(Guid.Parse(uuid));
+            return Guid.Parse(uuid);
         }
     }
 }

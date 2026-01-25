@@ -700,7 +700,7 @@ namespace MobiFlight
 
             scriptRunner.StartUp();
 
-            // the timer has to be enabled before the 
+            // the timer has to be enabled before the
             // on start actions are executed
             // otherwise the input events will not be executed.
             timer.Start();
@@ -710,6 +710,51 @@ namespace MobiFlight
             OnStartActions();
 
             mobiFlightCache.StartKeepAwake();
+
+            // Connect to BLE devices specified in the project config
+            ConnectBleDevicesFromConfig();
+        }
+
+        /// <summary>
+        /// Connects to BLE devices that are referenced in the loaded project's config items.
+        /// </summary>
+        private void ConnectBleDevicesFromConfig()
+        {
+            if (!Properties.Settings.Default.EnableBleSupport)
+            {
+                Log.Instance.log("[BLE] BLE support is disabled in settings", LogSeverity.Debug);
+                return;
+            }
+
+            if (Project == null || Project.ConfigFiles == null)
+            {
+                Log.Instance.log("[BLE] No project loaded, skipping BLE connection", LogSeverity.Debug);
+                return;
+            }
+
+            // Collect all config items from all config files
+            var allConfigItems = Project.ConfigFiles
+                .SelectMany(cf => cf.ConfigItems)
+                .ToList();
+
+            if (allConfigItems.Count == 0)
+            {
+                Log.Instance.log("[BLE] No config items found, skipping BLE connection", LogSeverity.Debug);
+                return;
+            }
+
+            // Fire-and-forget async connection - the Connected event will fire when complete
+            System.Threading.Tasks.Task.Run(async () =>
+            {
+                try
+                {
+                    await bleDeviceManager.ConnectFromConfigItemsAsync(allConfigItems);
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"[BLE] Error connecting to BLE devices: {ex.Message}", LogSeverity.Error);
+                }
+            });
         }
 
         private void InitInputEventExecutor()
@@ -750,6 +795,7 @@ namespace MobiFlight
             xplaneCache.Stop();
             joystickManager.Stop();
             midiBoardManager.Stop();
+            bleDeviceManager.Stop();
             inputActionExecutionCache.Clear();
             ClearConfigItemStatus();
             ClearErrorMessages();
@@ -892,6 +938,11 @@ namespace MobiFlight
             if (Properties.Settings.Default.EnableMidiSupport)
             {
                 midiBoardManager.Shutdown();
+            }
+
+            if (Properties.Settings.Default.EnableBleSupport)
+            {
+                bleDeviceManager.Shutdown();
             }
 
             OnSimAircraftChanged -= scriptRunner.OnSimAircraftChanged;

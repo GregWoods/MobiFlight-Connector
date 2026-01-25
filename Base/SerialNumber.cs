@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using MobiFlight.BLE;
 
 namespace MobiFlight.Base
 {
@@ -34,16 +35,17 @@ namespace MobiFlight.Base
         }
 
         /// <summary>
-        /// Extracts the device type prefix from a serial number (e.g., "SN-", "JS-", "MI-")
+        /// Extracts the device type prefix from a serial number (e.g., "SN-", "JS-", "MI-", "BLE-")
         /// If no match - returns null
         /// </summary>
-        /// <returns>Device type prefix from a serial number (e.g., "SN-", "JS-", "MI-") or null if no match</returns>
+        /// <returns>Device type prefix from a serial number (e.g., "SN-", "JS-", "MI-", "BLE-") or null if no match</returns>
         public static string ExtractPrefix(string fullString)
         {
             var serial = ExtractSerial(fullString);
             if (serial.StartsWith(MobiFlightModule.SerialPrefix)) return MobiFlightModule.SerialPrefix;
             else if (serial.StartsWith(Joystick.SerialPrefix)) return Joystick.SerialPrefix;
             else if (serial.StartsWith(MidiBoard.SerialPrefix)) return MidiBoard.SerialPrefix;
+            else if (BleDevice.IsBleSerial(fullString)) return BleDevice.SerialPrefix;
             return null;
         }
 
@@ -69,6 +71,11 @@ namespace MobiFlight.Base
         {
             if (string.IsNullOrEmpty(serial)) return false;
             return (serial.IndexOf(MidiBoard.SerialPrefix) == 0);
+        }
+
+        public static bool IsBleSerial(string serial)
+        {
+            return BleDevice.IsBleSerial(serial);
         }
 
         public static bool IsRawSerial(string serial)

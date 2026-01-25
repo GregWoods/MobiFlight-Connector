@@ -135,6 +135,14 @@
     <Reference Include="InTheHand.BluetoothLE, Version=4.0.0.0, Culture=neutral, PublicKeyToken=ea38caa273134499, processorArchitecture=MSIL">
       <HintPath>packages\InTheHand.BluetoothLE.4.0.44\lib\netstandard2.0\InTheHand.BluetoothLE.dll</HintPath>
     </Reference>
+    <Reference Include="Windows.Foundation.FoundationContract">
+      <HintPath>packages\Microsoft.Windows.SDK.Contracts.10.0.22621.755\ref\netstandard2.0\Windows.Foundation.FoundationContract.winmd</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Windows.Foundation.UniversalApiContract">
+      <HintPath>packages\Microsoft.Windows.SDK.Contracts.10.0.22621.755\ref\netstandard2.0\Windows.Foundation.UniversalApiContract.winmd</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.23.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
       <Private>True</Private>
@@ -1205,8 +1213,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="ApplicationInsights.config" />
-    <None Include="BluetoothLEDevices\blesimionic.schema.json" />
-    <None Include="BluetoothLEDevices\SimionicG1000.json" />
+    <None Include="BluetoothLEDevices\blesimionic.schema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="BluetoothLEDevices\SimionicG1000.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

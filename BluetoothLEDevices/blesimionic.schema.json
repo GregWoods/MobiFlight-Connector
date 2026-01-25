@@ -26,64 +26,40 @@
       "type": "array",
       "description": "List of input controls (buttons and encoders)",
       "items": {
-        "oneOf": [
-          {
-            "type": "object",
-            "description": "Button input",
-            "required": ["Type", "Label"],
-            "anyOf": [
-              { "required": ["Press"] },
-              { "required": ["Release"] }
-            ],
-            "properties": {
-              "Type": {
-                "type": "string",
-                "const": "Button"
-              },
-              "Press": {
-                "type": "string",
-                "pattern": "^[0-9A-Fa-f]{2}$",
-                "description": "Hex code sent when button is pressed"
-              },
-              "Release": {
-                "type": "string",
-                "pattern": "^[0-9A-Fa-f]{2}$",
-                "description": "Hex code sent when button is released"
-              },
-              "Label": {
-                "type": "string",
-                "description": "Display label for the button"
-              }
-            },
-            "additionalProperties": false
+        "type": "object",
+        "required": ["Type", "Label"],
+        "properties": {
+          "Type": {
+            "type": "string",
+            "enum": ["Button", "Encoder"],
+            "description": "The input type: Button or Encoder"
           },
-          {
-            "type": "object",
-            "description": "Encoder input",
-            "required": ["Type", "Decrement", "Increment", "Label"],
-            "properties": {
-              "Type": {
-                "type": "string",
-                "const": "Encoder"
-              },
-              "Decrement": {
-                "type": "string",
-                "pattern": "^[0-9A-Fa-f]{2}$",
-                "description": "Hex code sent when encoder is turned counter-clockwise"
-              },
-              "Increment": {
-                "type": "string",
-                "pattern": "^[0-9A-Fa-f]{2}$",
-                "description": "Hex code sent when encoder is turned clockwise"
-              },
-              "Label": {
-                "type": "string",
-                "description": "Display label for the encoder"
-              }
-            },
-            "additionalProperties": false
+          "Label": {
+            "type": "string",
+            "description": "Display label for the input"
+          },
+          "Press": {
+            "type": "string",
+            "pattern": "^[0-9A-Fa-f]{2}$",
+            "description": "Hex code sent when button is pressed (Button type only)"
+          },
+          "Release": {
+            "type": "string",
+            "pattern": "^[0-9A-Fa-f]{2}$",
+            "description": "Hex code sent when button is released (Button type only)"
+          },
+          "Increment": {
+            "type": "string",
+            "pattern": "^[0-9A-Fa-f]{2}$",
+            "description": "Hex code sent when encoder is turned clockwise (Encoder type only)"
+          },
+          "Decrement": {
+            "type": "string",
+            "pattern": "^[0-9A-Fa-f]{2}$",
+            "description": "Hex code sent when encoder is turned counter-clockwise (Encoder type only)"
           }
-        ]
+        },
+        "additionalProperties": false
       }
     },
     "Outputs": {

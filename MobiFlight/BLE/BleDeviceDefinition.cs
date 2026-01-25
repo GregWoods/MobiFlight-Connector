@@ -112,7 +112,10 @@ namespace MobiFlight.BLE
         [JsonProperty("Decrement")]
         public string Decrement { get; set; }
 
+        [JsonIgnore]
         public bool IsButton => Type == "Button";
+
+        [JsonIgnore]
         public bool IsEncoder => Type == "Encoder";
 
         /// <summary>
