@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.BLE;
+using System;
 
 namespace MobiFlight
 {
@@ -34,7 +35,9 @@ namespace MobiFlight
         public string GetMsgEventLabel()
         {
             var eventAction = GetEventActionLabel();
-            return $"{Name} => {DeviceLabel}{(ExtPin.HasValue ? $":{ExtPin}" : "")} => {eventAction}";
+            // Include Serial for BLE devices to show MAC address identifier
+            var deviceIdentifier = BleDevice.IsBleSerial(Serial) ? $"{Name} / {Serial}" : Name;
+            return $"{deviceIdentifier} => {DeviceLabel}{(ExtPin.HasValue ? $":{ExtPin}" : "")} => {eventAction}";
         }
 
         public object Clone()

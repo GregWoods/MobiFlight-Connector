@@ -1,4 +1,5 @@
 using MobiFlight.Base;
+using MobiFlight.BLE;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.ProSim;
@@ -156,17 +157,28 @@ namespace MobiFlight.Execution
                 return false;
 
             bool serialMatches = cfg.ModuleSerial.Contains("/ " + e.Serial);
+
+            // For backward compatibility with legacy BLE serial format (e.g., "BLESimionic / [address]")
+            // we compare MAC addresses directly since the prefix may differ
+            if (!serialMatches && BleDevice.IsBleSerial(cfg.ModuleSerial))
+            {
+                var configAddress = BleDevice.ExtractAddressFromSerial(cfg.ModuleSerial);
+                var eventAddress = BleDevice.ExtractAddressFromSerial(e.Serial);
+                serialMatches = configAddress != null && eventAddress != null &&
+                    configAddress.Equals(eventAddress, StringComparison.OrdinalIgnoreCase);
+            }
+
             if (!serialMatches)
                 return false;
 
             bool deviceNameMatches = cfg.DeviceName == e.DeviceId;
-            
+
             // For backward compatibility we have to make this check
             // because we used to have the label in the config
             // but now we want to store the internal button identifier
             // so that the label can change any time without breaking the config
             bool isJoystickWithLabelMatch = Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.DeviceName == e.DeviceLabel;
-            
+
             return deviceNameMatches || isJoystickWithLabelMatch;
         }
 

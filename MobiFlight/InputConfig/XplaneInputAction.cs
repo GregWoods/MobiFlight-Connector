@@ -82,6 +82,7 @@ namespace MobiFlight.InputConfig
                 try
                 {
                     float finalValue = float.Parse(value);
+                    Log.Instance.log($"[X-Plane] Writing dataref: {Path} = {finalValue}", LogSeverity.Info);
                     xplaneCache.writeDataRef(Path, finalValue);
                 }
                 catch (Exception)
@@ -89,6 +90,7 @@ namespace MobiFlight.InputConfig
                 }
             } else if (InputType == INPUT_TYPE_COMMAND)
             {
+                Log.Instance.log($"[X-Plane] Sending command: {Path}", LogSeverity.Info);
                 xplaneCache.sendCommand(Path);
             }
         }

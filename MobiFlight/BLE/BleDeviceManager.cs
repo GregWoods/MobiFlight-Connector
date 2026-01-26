@@ -231,7 +231,8 @@ namespace MobiFlight.BLE
         }
 
         /// <summary>
-        /// Called when the device monitor detects a device is no longer available.
+        /// Called when the device monitor detects a device is no longer available (stopped advertising).
+        /// Note: Connected BLE devices often stop advertising, so we only disconnect if not connected.
         /// </summary>
         private void OnMonitorDeviceUnavailable(object sender, BlePortDetails details)
         {
@@ -242,6 +243,14 @@ namespace MobiFlight.BLE
 
                 if (device != null)
                 {
+                    // Don't disconnect devices that are still connected - BLE devices often stop
+                    // advertising once a GATT connection is established
+                    if (device.IsConnected)
+                    {
+                        Log.Instance.log($"[BLE] Device stopped advertising but still connected: {details.Name} at {details.FormattedAddress}", LogSeverity.Debug);
+                        return;
+                    }
+
                     Log.Instance.log($"[BLE] Device lost (timeout): {details.Name} at {details.FormattedAddress}", LogSeverity.Info);
                     device.Shutdown();
                     DevicesToBeRemoved.Add(device);

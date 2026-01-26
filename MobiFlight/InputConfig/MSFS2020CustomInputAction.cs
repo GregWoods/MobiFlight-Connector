@@ -68,6 +68,7 @@ namespace MobiFlight.InputConfig
 
             value = Replace(value, replacements);
 
+            Log.Instance.log($"[MSFS] Sending command: {value}", LogSeverity.Info);
             cacheCollection.simConnectCache.SetSimVar(value);
         }
 

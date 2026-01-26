@@ -20,6 +20,10 @@ namespace MobiFlight.BLE
         public event EventHandler OnDisconnected;
 
         public string Name { get; private set; }
+        /// <summary>
+        /// The unique identifier for this device (e.g., "BLE-[88:6b:0f:a4:dd:d5]").
+        /// Used for matching in InputEventArgs, similar to Joystick.Serial.
+        /// </summary>
         public string Serial { get; private set; }
         public string Address { get; private set; }
         public bool IsConnected { get; private set; }
@@ -36,7 +40,8 @@ namespace MobiFlight.BLE
             Name = definition.Name;
             // Format the address as colon-separated hex
             Address = FormatBluetoothAddress(bleDevice.BluetoothAddress);
-            Serial = GenerateSerial(definition.Name, Address);
+            // Serial is just the identifier (like Joystick uses "JS-{guid}")
+            Serial = $"{SerialPrefix}[{Address}]";
 
             // Subscribe to connection status changes
             _bleDevice.ConnectionStatusChanged += BleDevice_ConnectionStatusChanged;

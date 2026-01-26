@@ -68,6 +68,7 @@ namespace MobiFlight.InputConfig
 
             value = Replace(value, replacements);
 
+            Log.Instance.log($"[FSUIPC] Sending EventID: {EventId} with param: {value}", LogSeverity.Info);
             cacheCollection.fsuipcCache.setEventID(EventId, int.Parse(value));
         }
 
