@@ -9,6 +9,17 @@ MobiFlight is a Windows application that connects custom-built hardware (buttons
 - **Scripts/** - Python scripts for CDU/hardware integration
 - **tests/** - Playwright E2E tests
 
+## Building
+
+This is a .NET Framework 4.8 project using the old-style csproj format.
+
+- **Use MSBuild**, not `dotnet build`:
+  ```cmd
+  "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" MobiFlightConnector.csproj -p:Configuration=Debug -t:Build
+  ```
+- New source files must be explicitly added to `MobiFlightConnector.csproj` under `<Compile Include="..." />`
+- **Line endings**: Always use CRLF (`\r\n`) since this is a Windows application
+
 ## Key Patterns
 
 - `ExecutionManager` - Central coordination for application state
@@ -24,6 +35,8 @@ BLE device support follows the same patterns as Joysticks and MIDI boards.
 - `MobiFlight/BLE/BleDeviceManager.cs` - Manages discovery, connection, and input events
 - `MobiFlight/BLE/BleDevice.cs` - Individual device connection and notification handling
 - `MobiFlight/BLE/BleDeviceDefinition.cs` - JSON-based device definitions
+- `MobiFlight/BLE/BlePortDetails.cs` - Data class for discovered device information
+- `MobiFlight/Monitors/BleDeviceMonitor.cs` - Continuous ServiceUUID-based scanning
 - `BluetoothLEDevices/*.json` - Device definition files (e.g., SimionicG1000.json)
 
 ### Windows Runtime APIs
@@ -34,13 +47,14 @@ Uses Windows Runtime (WinRT) APIs directly from `Windows.Devices.Bluetooth` name
 
 **Important**: Uses callback-based async pattern (`operation.Completed = ...`) instead of `async/await` with `.AsTask()` due to .NET Framework 4.8 WinRT interop limitations.
 
-### Connection Flow
-1. User clicks Play → `ExecutionManager.Start()` calls `ConnectBleDevicesFromConfig()`
-2. Config items with BLE ModuleSerial values are identified (e.g., `"BLESimionic / [88:6b:0f:a4:dd:d5]"`)
-3. MAC addresses are extracted and normalized (lowercase, no separators)
-4. `BluetoothLEAdvertisementWatcher` scans for advertising devices
-5. When a device matches a target address, `BluetoothLEDevice.FromBluetoothAddressAsync()` connects
+### Discovery & Connection Flow
+1. Project loads → `ExecutionManager.OnProjectChanged` triggers `StartBleDeviceScanning()`
+2. `BleDeviceMonitor` starts continuous scanning via `BluetoothLEAdvertisementWatcher`
+3. Advertisements are filtered by ServiceUUIDs from loaded JSON definitions
+4. When a device matches a known ServiceUUID, `DeviceAvailable` event fires
+5. `BleDeviceManager` auto-connects using `BluetoothLEDevice.FromBluetoothAddressAsync()`
 6. GATT service/characteristic discovery and notification subscription
+7. Devices that stop advertising for 30 seconds trigger `DeviceUnavailable` and are disconnected
 
 ### Serial Format
 - Prefix: `BLE-` (defined in `BleDevice.SerialPrefix`)
@@ -50,6 +64,7 @@ Uses Windows Runtime (WinRT) APIs directly from `Windows.Devices.Bluetooth` name
 ### Adding New BLE Devices
 1. Create a JSON definition in `BluetoothLEDevices/` with ServiceUUID, CharacteristicUUID, and input mappings
 2. The definition maps hex notification codes to input labels (buttons/encoders)
+3. Devices advertising the ServiceUUID will be auto-discovered when a project loads
 
 ### NuGet Dependencies
 - `Microsoft.Windows.SDK.Contracts` - Windows Runtime API access for .NET Framework
@@ -62,5 +77,5 @@ Uses Windows Runtime (WinRT) APIs directly from `Windows.Devices.Bluetooth` name
 
 ## Before Committing
 
-- C#: Ensure build succeeds with no errors
+- C#: Ensure build succeeds with no errors (use MSBuild command above)
 - Frontend: Run `npm run lint` and `npm run check:i18n`
