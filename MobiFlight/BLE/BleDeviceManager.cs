@@ -1,4 +1,5 @@
 using MobiFlight.Base;
+using MobiFlight.Monitors;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,16 @@ namespace MobiFlight.BLE
         private readonly List<BleDevice> DevicesToBeRemoved = new List<BleDevice>();
         public readonly Dictionary<string, BleDeviceDefinition> Definitions = new Dictionary<string, BleDeviceDefinition>();
 
+        /// <summary>
+        /// Maps ServiceUUID to device definition for quick lookup during scanning.
+        /// </summary>
+        private Dictionary<Guid, BleDeviceDefinition> _serviceUuidToDefinition = new Dictionary<Guid, BleDeviceDefinition>();
+
+        /// <summary>
+        /// Monitor for continuous BLE device scanning.
+        /// </summary>
+        private readonly BleDeviceMonitor _deviceMonitor = new BleDeviceMonitor();
+
         private readonly Timer ProcessTimer = new Timer();
         private int CheckAttachedRemovedCounter = 0;
         private bool _isScanning = false;
@@ -41,6 +52,10 @@ namespace MobiFlight.BLE
             Load();
             ProcessTimer.Interval = 50;
             ProcessTimer.Tick += ProcessTimer_Tick;
+
+            // Subscribe to device monitor events
+            _deviceMonitor.DeviceAvailable += OnMonitorDeviceAvailable;
+            _deviceMonitor.DeviceUnavailable += OnMonitorDeviceUnavailable;
         }
 
         /// <summary>
@@ -78,7 +93,15 @@ namespace MobiFlight.BLE
                 Definitions.Add(definition.Name, definition);
             }
 
-            Log.Instance.log($"[BLE] Loaded {Definitions.Count} device definition(s)", LogSeverity.Info);
+            // Build ServiceUUID lookup for continuous scanning
+            _serviceUuidToDefinition = Definitions.Values
+                .Where(d => !string.IsNullOrEmpty(d.ServiceUUID))
+                .ToDictionary(
+                    d => ParseUuid(d.ServiceUUID),
+                    d => d
+                );
+
+            Log.Instance.log($"[BLE] Loaded {Definitions.Count} device definition(s) with {_serviceUuidToDefinition.Count} ServiceUUID(s)", LogSeverity.Info);
         }
 
         public bool AreBleDevicesConnected()
@@ -126,6 +149,9 @@ namespace MobiFlight.BLE
 
         public void Shutdown()
         {
+            // Stop continuous scanning
+            StopContinuousScanning();
+
             ProcessTimer.Stop();
             foreach (var device in Devices)
             {
@@ -141,10 +167,90 @@ namespace MobiFlight.BLE
         /// </summary>
         public void Connect()
         {
-            // Connection is now handled by ConnectFromConfigItemsAsync which is called
-            // from ExecutionManager.ConnectBleDevicesFromConfig() when the user clicks Play.
+            // Connection is now handled by StartContinuousScanning which is called
+            // from ExecutionManager when a project is loaded.
             // This method is kept for API compatibility but does nothing on its own.
-            Log.Instance.log("[BLE] Connect() called - use ConnectFromConfigItemsAsync for actual connection", LogSeverity.Debug);
+            Log.Instance.log("[BLE] Connect() called - use StartContinuousScanning for continuous device discovery", LogSeverity.Debug);
+        }
+
+        /// <summary>
+        /// Starts continuous BLE scanning based on ServiceUUIDs from loaded definitions.
+        /// Devices matching known ServiceUUIDs will be auto-connected.
+        /// </summary>
+        public void StartContinuousScanning()
+        {
+            if (_serviceUuidToDefinition.Count == 0)
+            {
+                Log.Instance.log("[BLE] No device definitions loaded, skipping continuous scan", LogSeverity.Warn);
+                return;
+            }
+
+            _deviceMonitor.SetDefinitions(_serviceUuidToDefinition);
+            _deviceMonitor.Start();
+            Log.Instance.log("[BLE] Started continuous device scanning", LogSeverity.Info);
+        }
+
+        /// <summary>
+        /// Stops continuous BLE scanning.
+        /// </summary>
+        public void StopContinuousScanning()
+        {
+            _deviceMonitor.Stop();
+            Log.Instance.log("[BLE] Stopped continuous device scanning", LogSeverity.Info);
+        }
+
+        /// <summary>
+        /// Called when the device monitor discovers a new BLE device.
+        /// </summary>
+        private async void OnMonitorDeviceAvailable(object sender, BlePortDetails details)
+        {
+            try
+            {
+                // Check if we already have this device connected
+                var existingDevice = Devices.FirstOrDefault(d =>
+                    d.Address.Equals(details.FormattedAddress, StringComparison.OrdinalIgnoreCase));
+
+                if (existingDevice != null)
+                {
+                    Log.Instance.log($"[BLE] Device already connected: {details.Name} at {details.FormattedAddress}", LogSeverity.Debug);
+                    return;
+                }
+
+                Log.Instance.log($"[BLE] Auto-connecting to discovered device: {details.Name} at {details.FormattedAddress}", LogSeverity.Info);
+                await ConnectDeviceByBluetoothAddress(details.BluetoothAddress, details.Definition);
+
+                if (AreBleDevicesConnected())
+                {
+                    Connected?.Invoke(this, EventArgs.Empty);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"[BLE] Error auto-connecting device: {ex.Message}", LogSeverity.Error);
+            }
+        }
+
+        /// <summary>
+        /// Called when the device monitor detects a device is no longer available.
+        /// </summary>
+        private void OnMonitorDeviceUnavailable(object sender, BlePortDetails details)
+        {
+            try
+            {
+                var device = Devices.FirstOrDefault(d =>
+                    d.Address.Equals(details.FormattedAddress, StringComparison.OrdinalIgnoreCase));
+
+                if (device != null)
+                {
+                    Log.Instance.log($"[BLE] Device lost (timeout): {details.Name} at {details.FormattedAddress}", LogSeverity.Info);
+                    device.Shutdown();
+                    DevicesToBeRemoved.Add(device);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"[BLE] Error handling device unavailable: {ex.Message}", LogSeverity.Error);
+            }
         }
 
         /// <summary>

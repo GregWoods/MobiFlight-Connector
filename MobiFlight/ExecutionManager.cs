@@ -251,6 +251,9 @@ namespace MobiFlight
                 ActiveConfigIndex = 0;
                 InitInputEventExecutor();
                 MessageExchange.Instance.Publish(p);
+
+                // Start continuous BLE scanning when a project is loaded
+                StartBleDeviceScanning();
             };
 
             frontendUpdateTimer.Interval = 200;
@@ -349,6 +352,21 @@ namespace MobiFlight
             {
                 bleDeviceManager.Connect();
             }
+        }
+
+        /// <summary>
+        /// Starts continuous BLE device scanning when a project is loaded.
+        /// Devices matching known ServiceUUIDs will be auto-discovered and connected.
+        /// </summary>
+        private void StartBleDeviceScanning()
+        {
+            if (!Properties.Settings.Default.EnableBleSupport)
+            {
+                Log.Instance.log("[BLE] BLE support is disabled in settings", LogSeverity.Debug);
+                return;
+            }
+
+            bleDeviceManager.StartContinuousScanning();
         }
 
         private void InitializeFrontendSubscriptions()
@@ -710,8 +728,8 @@ namespace MobiFlight
 
             mobiFlightCache.StartKeepAwake();
 
-            // Connect to BLE devices specified in the project config
-            ConnectBleDevicesFromConfig();
+            // Note: BLE devices are now auto-connected via continuous scanning
+            // which starts when a project is loaded (see StartBleDeviceScanning)
         }
 
         /// <summary>
