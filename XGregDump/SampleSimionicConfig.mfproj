@@ -27,7 +27,29 @@
           "Active": true,
           "Name": "*PFD* NAV Volume PUSH",
           "Type": "InputConfigItem",
-          "ModuleSerial": "BLESimionic / [88:6b:0f:a4:dd:d5]"
+          "ModuleSerial": "Simionic G1000 with Audio Panel / BLE-[88:6b:0f:a4:dd:d5]"
+        },
+        {
+          "button": {
+            "onPress": {
+              "Type": "MSFS2020CustomInputAction",
+              "Command": "(>H:AS1000_PFD_CRS_PUSH)",
+              "PresetId": "03ed22c6-ea05-4dfc-ba9a-5cba0ce964ef"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "DeviceType": "Button",
+          "DeviceName": "Button D11",
+          "GUID": "aa85f408-8054-4d6e-acdd-9295847d5816",
+          "Active": true,
+          "Name": "NanoTestButton1_D11",
+          "Type": "InputConfigItem",
+          "ModuleSerial": "Nano RGB / SN-70F-FEF"
         }
       ]
     }
