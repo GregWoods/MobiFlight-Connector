@@ -67,13 +67,6 @@ namespace MobiFlight.BLE
             return $"{bytes[5]:x2}:{bytes[4]:x2}:{bytes[3]:x2}:{bytes[2]:x2}:{bytes[1]:x2}:{bytes[0]:x2}";
         }
 
-        /// <summary>
-        /// Generates a serial string in the format "DeviceName / BLE-[address]"
-        /// </summary>
-        public static string GenerateSerial(string deviceName, string address)
-        {
-            return $"{deviceName} / {SerialPrefix}[{address}]";
-        }
 
         /// <summary>
         /// Extracts the MAC address from a BLE serial string.

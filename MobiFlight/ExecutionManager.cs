@@ -298,12 +298,13 @@ namespace MobiFlight
 
             bleDeviceManager.GetDevices().ToList().ForEach(controller =>
             {
-                connectedControllers.Add(new Controller()
+                var bleController = new Controller()
                 {
                     Name = controller.Name,
                     Connected = true,
                     Serial = controller.Serial
-                });
+                };
+                connectedControllers.Add(bleController);
             });
 
             MessageExchange.Instance.Publish(new ConnectedControllers() { Controllers = connectedControllers });
@@ -727,9 +728,6 @@ namespace MobiFlight
             OnStartActions();
 
             mobiFlightCache.StartKeepAwake();
-
-            // Note: BLE devices are now auto-connected via continuous scanning
-            // which starts when a project is loaded (see StartBleDeviceScanning)
         }
 
         /// <summary>
@@ -750,6 +748,7 @@ namespace MobiFlight
             }
 
             // Collect all config items from all config files
+            //TODO: check contents of this. Not filtered by BLE
             var allConfigItems = Project.ConfigFiles
                 .SelectMany(cf => cf.ConfigItems)
                 .ToList();

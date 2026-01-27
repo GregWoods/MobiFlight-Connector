@@ -123,7 +123,9 @@ namespace MobiFlight.Execution
         {
             var result = new List<InputConfigItem>();
 
-            foreach (var cfg in _configItems.Where(c => c is InputConfigItem).Cast<InputConfigItem>())
+            var filteredConfigItems = _configItems.Where(c => c is InputConfigItem).Cast<InputConfigItem>();
+
+            foreach (var cfg in filteredConfigItems)
             {
                 try
                 {
@@ -158,8 +160,7 @@ namespace MobiFlight.Execution
 
             bool serialMatches = cfg.ModuleSerial.Contains("/ " + e.Serial);
 
-            // For backward compatibility with legacy BLE serial format (e.g., "BLESimionic / [address]")
-            // we compare MAC addresses directly since the prefix may differ
+            // BLE device check
             if (!serialMatches && BleDevice.IsBleSerial(cfg.ModuleSerial))
             {
                 var configAddress = BleDevice.ExtractAddressFromSerial(cfg.ModuleSerial);

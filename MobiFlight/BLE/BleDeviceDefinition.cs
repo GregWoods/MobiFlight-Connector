@@ -26,6 +26,9 @@ namespace MobiFlight.BLE
         public List<BleOutputDefinition> Outputs { get; set; } = new List<BleOutputDefinition>();
 
         // Lookup tables for fast hex code to input mapping
+        //TODO: Look into a fixed size array with byte indexing. Instantaneous lookups at the expense of 
+        //  a fixed limited string length for the returned "Name". We then still have the expensive 
+        //  "Name" to "Command" dictionary lookup later.
         private Dictionary<string, BleInputDefinition> _hexToInputMap;
 
         public void Migrate()
