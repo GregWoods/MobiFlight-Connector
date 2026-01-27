@@ -195,6 +195,10 @@ namespace MobiFlight.BLE
 
                                         IsConnected = true;
                                         Log.Instance.log($"[BLE] Connected to {Name} and subscribed to notifications", LogSeverity.Info);
+
+                                        // Request low-latency connection parameters for responsive input
+                                        RequestLowLatencyConnectionParameters();
+
                                         tcs.SetResult(true);
                                     }
                                     catch (Exception ex)
@@ -223,6 +227,40 @@ namespace MobiFlight.BLE
             }
 
             return tcs.Task;
+        }
+
+        /// <summary>
+        /// Requests low-latency connection parameters from the BLE device.
+        /// This helps improve responsiveness for rotary encoders and other rapid inputs.
+        /// Uses ThroughputOptimized which typically uses 7.5-30ms connection intervals
+        /// instead of the default 30-50ms or higher.
+        /// </summary>
+        private void RequestLowLatencyConnectionParameters()
+        {
+            try
+            {
+                if (_bleDevice == null) return;
+
+                // Request connection parameters optimized for throughput (lower latency)
+                // This API requires Windows 10 version 2004 (build 19041) or later
+                var connectionParams = BluetoothLEPreferredConnectionParameters.ThroughputOptimized;
+                var request = _bleDevice.RequestPreferredConnectionParameters(connectionParams);
+
+                if (request.Status == BluetoothLEPreferredConnectionParametersRequestStatus.Success)
+                {
+                    Log.Instance.log($"[BLE] {Name}: Low-latency connection parameters requested", LogSeverity.Info);
+                }
+                else
+                {
+                    Log.Instance.log($"[BLE] {Name}: Connection parameter request status: {request.Status}", LogSeverity.Debug);
+                }
+            }
+            catch (Exception ex)
+            {
+                // This API may not be available on older Windows versions
+                // Log at debug level and continue - the connection will still work, just with default parameters
+                Log.Instance.log($"[BLE] {Name}: Could not request connection parameters (may require Windows 10 2004+): {ex.Message}", LogSeverity.Debug);
+            }
         }
 
         /// <summary>
