@@ -9,7 +9,7 @@ namespace MobiFlight.BLE
     public class BlePortDetails
     {
         /// <summary>
-        /// The device definition name (e.g., "Simionic G1000 with Audio Panel").
+        /// The device definition name from the JSON definition file.
         /// </summary>
         public string Name { get; set; }
 

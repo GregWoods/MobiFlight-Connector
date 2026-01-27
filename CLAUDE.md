@@ -37,7 +37,7 @@ BLE device support follows the same patterns as Joysticks and MIDI boards.
 - `MobiFlight/BLE/BleDeviceDefinition.cs` - JSON-based device definitions
 - `MobiFlight/BLE/BlePortDetails.cs` - Data class for discovered device information
 - `MobiFlight/Monitors/BleDeviceMonitor.cs` - Continuous ServiceUUID-based scanning
-- `BluetoothLEDevices/*.json` - Device definition files (e.g., SimionicG1000.json)
+- `BluetoothLEDevices/*.json` - Device definition files
 
 ### Windows Runtime APIs
 Uses Windows Runtime (WinRT) APIs directly from `Windows.Devices.Bluetooth` namespace:
@@ -59,7 +59,6 @@ Uses Windows Runtime (WinRT) APIs directly from `Windows.Devices.Bluetooth` name
 ### Serial Format
 - Prefix: `BLE-` (defined in `BleDevice.SerialPrefix`)
 - Full format: `DeviceName / BLE-[MAC_ADDRESS]`
-- Legacy format: `BLESimionic / [MAC_ADDRESS]`
 
 ### Adding New BLE Devices
 1. Create a JSON definition in `BluetoothLEDevices/` with ServiceUUID, CharacteristicUUID, and input mappings

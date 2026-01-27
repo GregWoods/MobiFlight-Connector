@@ -8,7 +8,7 @@ using Windows.Storage.Streams;
 namespace MobiFlight.BLE
 {
     /// <summary>
-    /// Represents a connected BLE device (e.g., Simionic G1000).
+    /// Represents a connected BLE device.
     /// Handles BLE connection, service/characteristic discovery, and notification processing.
     /// Uses Windows Runtime APIs directly.
     /// </summary>
@@ -78,7 +78,6 @@ namespace MobiFlight.BLE
         /// <summary>
         /// Extracts the MAC address from a BLE serial string.
         /// Serial format: "DeviceName / BLE-[88:6b:0f:a4:dd:d5]"
-        /// Also handles legacy format: "BLESimionic / [88:6b:0f:a4:dd:d5]"
         /// </summary>
         public static string ExtractAddressFromSerial(string serial)
         {
@@ -102,8 +101,7 @@ namespace MobiFlight.BLE
         public static bool IsBleSerial(string serial)
         {
             if (string.IsNullOrEmpty(serial)) return false;
-            // Check for new format with BLE- prefix or legacy format with BLESimionic
-            return serial.Contains(SerialPrefix) || serial.Contains("BLESimionic");
+            return serial.Contains(SerialPrefix);
         }
 
         /// <summary>

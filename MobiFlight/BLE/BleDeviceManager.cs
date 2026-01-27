@@ -497,7 +497,7 @@ namespace MobiFlight.BLE
 
         /// <summary>
         /// Extracts the definition name from a ModuleSerial string.
-        /// Handles formats like "SimionicG1000 / BLE-[address]" or "BLESimionic / [address]"
+        /// Handles formats like "DeviceName / BLE-[address]"
         /// </summary>
         private string ExtractDefinitionNameFromSerial(string moduleSerial)
         {
@@ -505,16 +505,6 @@ namespace MobiFlight.BLE
 
             // Extract the device name part (before "/ ")
             var deviceName = Base.SerialNumber.ExtractDeviceName(moduleSerial);
-
-            // Handle legacy "BLESimionic" format
-            if (deviceName.Equals("BLESimionic", StringComparison.OrdinalIgnoreCase))
-            {
-                // Try to find a matching definition
-                var simionicDef = Definitions.Values.FirstOrDefault(d =>
-                    d.Name.IndexOf("Simionic", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    d.Name.IndexOf("G1000", StringComparison.OrdinalIgnoreCase) >= 0);
-                return simionicDef?.Name;
-            }
 
             // Try to find an exact match
             if (Definitions.ContainsKey(deviceName))
