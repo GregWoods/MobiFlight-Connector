@@ -23,6 +23,8 @@ namespace MobiFlight.BLE
         public bool LoadingError = false;
 
         public event EventHandler Connected;
+        public event EventHandler ControllerConnected;
+        public event EventHandler ControllerDisconnected;
         public event ButtonEventHandler OnButtonPressed;
 
         private readonly List<BleDevice> Devices = new List<BleDevice>();
@@ -254,6 +256,7 @@ namespace MobiFlight.BLE
                     Log.Instance.log($"[BLE] Device lost (timeout): {details.Name} at {details.FormattedAddress}", LogSeverity.Info);
                     device.Shutdown();
                     DevicesToBeRemoved.Add(device);
+                    ControllerDisconnected?.Invoke(this, null);
                 }
             }
             catch (Exception ex)
@@ -477,6 +480,7 @@ namespace MobiFlight.BLE
 
                         Devices.Add(device);
                         Log.Instance.log($"[BLE] Added device: {device.Name} ({device.Address})", LogSeverity.Info);
+                        ControllerConnected?.Invoke(this, null);
                         tcs.SetResult(true);
                     }
                     catch (Exception ex)
@@ -531,6 +535,7 @@ namespace MobiFlight.BLE
             if (device != null)
             {
                 DevicesToBeRemoved.Add(device);
+                ControllerDisconnected?.Invoke(this, null);
             }
         }
 

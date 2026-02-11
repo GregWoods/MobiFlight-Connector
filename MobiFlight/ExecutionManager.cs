@@ -255,6 +255,16 @@ namespace MobiFlight
                 bleDeviceManager.Startup();
                 OnBleDeviceConnectedFinished?.Invoke(sender, e);
             };
+            bleDeviceManager.ControllerConnected += (s, e) =>
+            {
+                OnControllerConnected?.Invoke(s, e);
+                PublishConnectedDevices();
+            };
+            bleDeviceManager.ControllerDisconnected += (s, e) =>
+            {
+                OnControllerRemoved?.Invoke(s, e);
+                PublishConnectedDevices();
+            };
 
             OnProjectChanged += (s, p) =>
             {
