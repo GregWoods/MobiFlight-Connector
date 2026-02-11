@@ -1,4 +1,5 @@
 ﻿using HidSharp;
+using HidSharp.Exceptions;
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.Joysticks;
@@ -378,6 +379,8 @@ namespace MobiFlight
                     connectionDetails = HidConnectionDetails.FromHidController(hidDevice);
                 }
 
+                if (connectionDetails == null) return;
+
                 var definition = GetDefinitionByProductId(hidDevice.VendorID, hidDevice.ProductID);
                 if (definition == null) return;
 
@@ -397,8 +400,12 @@ namespace MobiFlight
                 joystick.OnDisconnected += Js_OnDisconnected;
                 joystick.OnButtonPressed += Js_OnButtonPressed;
                 Log.Instance.log($"Connected HID device: {definition.InstanceName} ({joystick.Serial})", LogSeverity.Info);
-                
+
                 ControllerConnected?.Invoke(this, null);
+            }
+            catch (IOException)
+            {
+                // Do nothing
             }
             catch (Exception ex)
             {

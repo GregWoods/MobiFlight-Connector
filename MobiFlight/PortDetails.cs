@@ -32,13 +32,21 @@ namespace MobiFlight
 
         static public HidConnectionDetails FromHidController(HidDevice device)
         {
-            return new HidConnectionDetails
+            try
             {
-                Name = device.GetProductName(),
-                VendorId = device.VendorID,
-                ProductId = device.ProductID,
-                DevicePath = device.DevicePath
-            };
+                return new HidConnectionDetails
+                {
+                    Name = device.GetProductName(),
+                    VendorId = device.VendorID,
+                    ProductId = device.ProductID,
+                    DevicePath = device.DevicePath
+                };
+            }
+            catch
+            {
+                // Skip devices with no valid ProductName
+                return null;
+            }
         }
 
         public override bool Equals(object obj)

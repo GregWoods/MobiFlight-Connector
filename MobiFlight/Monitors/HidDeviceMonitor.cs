@@ -21,13 +21,20 @@ namespace MobiFlight.Monitors
             var allHidDevices = DeviceList.Local.GetHidDevices().ToList();
             foreach ( var device in allHidDevices )
             {
-                result.Add(new HidConnectionDetails()
+                try
                 {
-                    DevicePath = device.DevicePath,
-                    VendorId = device.VendorID,
-                    ProductId = device.ProductID,
-                    Name = device.GetProductName()
-                });
+                    result.Add(new HidConnectionDetails()
+                    {
+                        DevicePath = device.DevicePath,
+                        VendorId = device.VendorID,
+                        ProductId = device.ProductID,
+                        Name = device.GetProductName()
+                    });
+                }
+                catch
+                {
+                    // Skip devices with no valid ProductName
+                }
             }
 
             isScanning = false;
