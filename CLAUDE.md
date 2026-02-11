@@ -13,9 +13,17 @@ MobiFlight is a Windows application that connects custom-built hardware (buttons
 
 This is a .NET Framework 4.8 project using the old-style csproj format.
 
-- **Use MSBuild**, not `dotnet build`:
+- **NuGet restore** (required before first build or after package changes):
+  ```cmd
+  .\nuget.exe restore MobiFlightConnector.sln
+  ```
+- **Build main project** with MSBuild (not `dotnet build`):
   ```cmd
   "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" MobiFlightConnector.csproj -p:Configuration=Debug -t:Build
+  ```
+- **Build entire solution** (includes unit tests) — requires `-p:Platform="x86"`:
+  ```cmd
+  "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" MobiFlightConnector.sln -p:Configuration=Debug -p:Platform="x86" -t:Build
   ```
 - New source files must be explicitly added to `MobiFlightConnector.csproj` under `<Compile Include="..." />`
 - **Line endings**: Always use CRLF (`\r\n`) since this is a Windows application
@@ -26,6 +34,8 @@ This is a .NET Framework 4.8 project using the old-style csproj format.
 - `MessageExchange.Instance` - Publishes messages to the frontend
 - `Log.Instance.log()` - Logging with `LogSeverity` levels
 - `Properties.Settings.Default` - Persistent configuration
+- `Controller` (`Base\Controller.cs`) - Represents a connected device with `Name` and `Serial` properties
+- `IConfigItem.Controller` - Each config item references its controller (replaces the old `ModuleSerial` string)
 
 ## BLE (Bluetooth Low Energy) Support
 
@@ -58,7 +68,8 @@ Uses Windows Runtime (WinRT) APIs directly from `Windows.Devices.Bluetooth` name
 
 ### Serial Format
 - Prefix: `BLE-` (defined in `BleDevice.SerialPrefix`)
-- Full format: `DeviceName / BLE-[MAC_ADDRESS]`
+- Serial: `BLE-[MAC_ADDRESS]` (e.g., `BLE-[88:6b:0f:a4:dd:d5]`)
+- Stored on `Controller.Serial`; device name stored on `Controller.Name`
 
 ### Adding New BLE Devices
 1. Create a JSON definition in `BluetoothLEDevices/` with ServiceUUID, CharacteristicUUID, and input mappings
@@ -71,10 +82,12 @@ Uses Windows Runtime (WinRT) APIs directly from `Windows.Devices.Bluetooth` name
 ## Testing
 
 - C#: MSTest with Moq, naming `MethodName_ShouldBehavior_WhenCondition`
-- Frontend: Playwright E2E in `tests/`, Vitest for unit tests
-- Run Playwright: `npx playwright test --project=chromium`
+  - Build tests via the solution build command above (requires `-p:Platform="x86"`)
+  - Test project: `MobiFlightUnitTests/MobiFlightUnitTests.csproj`
+- Frontend: Playwright E2E in `frontend/tests/`, Vitest for unit tests
+- Run Playwright: `cd frontend && npx playwright test --project=chromium`
 
 ## Before Committing
 
-- C#: Ensure build succeeds with no errors (use MSBuild command above)
-- Frontend: Run `npm run lint` and `npm run check:i18n`
+- C#: Ensure solution build succeeds with no errors (use solution build command above)
+- Frontend: Run `npm run lint` and `npm run check:i18n` from the `frontend/` directory

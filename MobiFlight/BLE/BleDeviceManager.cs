@@ -273,11 +273,11 @@ namespace MobiFlight.BLE
 
             // Extract unique BLE device references
             var bleReferences = configItems
-                .Where(item => item != null && BleDevice.IsBleSerial(item.ModuleSerial))
+                .Where(item => item?.Controller != null && BleDevice.IsBleSerial(item.Controller.Serial))
                 .Select(item => new
                 {
-                    Address = BleDevice.ExtractAddressFromSerial(item.ModuleSerial)?.ToLowerInvariant(),
-                    DefinitionName = ExtractDefinitionNameFromSerial(item.ModuleSerial)
+                    Address = BleDevice.ExtractAddressFromSerial(item.Controller.Serial)?.ToLowerInvariant(),
+                    DefinitionName = ExtractDefinitionNameFromSerial(item.Controller.Name)
                 })
                 .Where(x => !string.IsNullOrEmpty(x.Address) && !string.IsNullOrEmpty(x.DefinitionName))
                 .GroupBy(x => x.Address)
@@ -496,15 +496,13 @@ namespace MobiFlight.BLE
         }
 
         /// <summary>
-        /// Extracts the definition name from a ModuleSerial string.
-        /// Handles formats like "DeviceName / BLE-[address]"
+        /// Finds the definition name that matches a controller name.
         /// </summary>
-        private string ExtractDefinitionNameFromSerial(string moduleSerial)
+        private string ExtractDefinitionNameFromSerial(string controllerName)
         {
-            if (string.IsNullOrEmpty(moduleSerial)) return null;
+            if (string.IsNullOrEmpty(controllerName)) return null;
 
-            // Extract the device name part (before "/ ")
-            var deviceName = Base.SerialNumber.ExtractDeviceName(moduleSerial);
+            var deviceName = controllerName;
 
             // Try to find an exact match
             if (Definitions.ContainsKey(deviceName))
