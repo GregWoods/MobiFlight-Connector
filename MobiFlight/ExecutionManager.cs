@@ -247,7 +247,7 @@ namespace MobiFlight
             InitializeFrontendSubscriptions();
         }
 
-        private void PublishConnectedDevices()
+        public void PublishConnectedDevices()
         {
             var connectedControllers = new List<Controller>();
             mobiFlightCache.GetModules().ToList().ForEach(module =>
@@ -255,7 +255,6 @@ namespace MobiFlight
                 connectedControllers.Add(new Controller()
                 {
                     Name = module.Name,
-                    Vendor = module.Board.Info.Community.Project,
                     Connected = true,
                     Serial = module.Serial
                 });
