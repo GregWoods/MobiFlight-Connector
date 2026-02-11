@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MobiFlight.Monitors
 {
-    public class UsbDeviceMonitor : DeviceMonitor
+    public class UsbDeviceMonitor : ControllerMonitor
     {
         /// <summary>
         /// Returns the IsReady value of the DriveInfo but also
@@ -45,7 +43,7 @@ namespace MobiFlight.Monitors
             if (isScanning) return;
             isScanning = true;
 
-            var result = new List<PortDetails>();
+            var result = new List<IConnectionDetails>();
 
             foreach (var drive in DriveInfo.GetDrives())
             {
@@ -90,7 +88,7 @@ namespace MobiFlight.Monitors
                 }
             }
             isScanning = false;
-            UpdatePorts(result);
+            UpdateConnectionDetails(result);
         }
     }
 }

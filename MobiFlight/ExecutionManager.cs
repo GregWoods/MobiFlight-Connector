@@ -48,8 +48,8 @@ namespace MobiFlight
         public event EventHandler<string> OnSimAircraftChanged;
         public event EventHandler<string> OnSimAircraftPathChanged;
 
-        public event EventHandler OnModuleConnected;
-        public event EventHandler OnModuleRemoved;
+        public event EventHandler OnControllerConnected;
+        public event EventHandler OnControllerRemoved;
         public event EventHandler OnModuleCacheAvailable;
         public event EventHandler OnShutdown;
         public event EventHandler OnInitialModuleLookupFinished;
@@ -225,6 +225,15 @@ namespace MobiFlight
             {
                 joystickManager.Startup();
                 OnJoystickConnectedFinished?.Invoke(sender, e);
+            };
+            joystickManager.ControllerConnected += (s, e) => {
+                OnControllerConnected?.Invoke(s, e);
+                PublishConnectedDevices(); 
+            };
+            joystickManager.ControllerDisconnected += (s, e) =>
+            {
+                OnControllerRemoved?.Invoke(s, e);
+                PublishConnectedDevices();
             };
 
 
@@ -593,7 +602,7 @@ namespace MobiFlight
         {
             TestModeStop();
             Stop();
-            this.OnModuleConnected?.Invoke(sender, e);
+            this.OnControllerConnected?.Invoke(sender, e);
             PublishConnectedDevices();
         }
 
@@ -1085,7 +1094,7 @@ namespace MobiFlight
         void ModuleCache_ModuleRemoved(object sender, EventArgs e)
         {
             //_disconnectArcaze();
-            this.OnModuleRemoved(sender, e);
+            this.OnControllerRemoved(sender, e);
             Stop();
             PublishConnectedDevices();
         }
